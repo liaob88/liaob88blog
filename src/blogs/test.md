@@ -2,6 +2,7 @@
 layout: Test
 title: Test
 date: 2020-08-09 00:00
+slug: "test"
 categories: [Android, Java, Geo, GoogleMapsAPI]
 ---
 
