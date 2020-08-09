@@ -22,6 +22,18 @@ section,
 summary {
   display: block;
 }
+main {
+  margin-top: 130px;
+  margin-bottom: 130px;
+}
+footer {
+  color: inherit;
+  background: #eeebf1;
+  width: 100%; /* 横の幅を100% */
+  position: fixed;
+  bottom: 0px; /* 絶対位置指定(左0px,下0px) */
+  padding: 10px 0; /* 上下に余白を取る */
+}
 audio,
 canvas,
 progress,
@@ -619,4 +631,7 @@ pre tt:after {
   html {
     font-size: 100%;
   }
+}
+.text-align-center {
+  text-align: center;
 }
