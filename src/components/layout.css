@@ -246,8 +246,9 @@ h1 {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: bold;
   text-rendering: optimizeLegibility;
-  font-size: 2.25rem;
+  font-size: 1.5rem;
   line-height: 1.1;
+  text-align: center;
 }
 h2 {
   margin-left: 0;
@@ -642,7 +643,7 @@ pre tt:after {
 
 .article-contents {
   border-bottom: 1px solid rgb(238, 235, 241);
-  padding: 12px;
+  padding: 1rem;
 }
 
 .article-title {
@@ -669,4 +670,27 @@ pre tt:after {
 
 .article-info time {
   font-size: 14px;
+}
+
+.post-page-wrapper {
+  padding: 1rem;
+}
+
+.post-page-contents h2 {
+  border-left: 5px solid coral;
+  padding-left: 15px;
+}
+
+.post-page-contents h3 {
+  border-bottom: 2px solid coral;
+  display: inline-block;
+}
+
+.post-page-contents a {
+  color: inherit;
+}
+
+.post-page-info {
+  text-align: center;
+  margin-bottom: 1rem;
 }

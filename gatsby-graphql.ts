@@ -2866,6 +2866,16 @@ export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
 
 export type Unnamed_1_Query = { site?: Maybe<Pick<Site, 'buildTime'>> };
 
+export type PostDataQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type PostDataQuery = { markdownRemark?: Maybe<(
+    Pick<MarkdownRemark, 'html'>
+    & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'tags' | 'date'>> }
+  )> };
+
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
 export type GatsbyImageSharpFixed_TracedSvgFragment = Pick<ImageSharpFixed, 'tracedSVG' | 'width' | 'height' | 'src' | 'srcSet'>;

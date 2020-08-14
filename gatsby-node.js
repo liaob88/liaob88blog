@@ -21,7 +21,7 @@ exports.createPages = async gatsbyNodeHelpers => {
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
       path: node.frontmatter.slug,
-      component: path.resolve(`./src/templates/post.js`),
+      component: path.resolve(`./src/templates/post.tsx`),
       context: {
         slug: node.frontmatter.slug,
       },
