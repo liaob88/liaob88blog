@@ -22,8 +22,7 @@ const Layout: React.FC<ReactNode> = ({ children }) => {
         <main>{children}</main>
       </div>
       <footer>
-          © {new Date().getFullYear()}, Built with
-          <a href="https://www.gatsbyjs.org"> Gatsby</a>
+        <text> © liao3 {new Date().getFullYear()}. All Rights Reserved</text>
       </footer>
     </>
   )
