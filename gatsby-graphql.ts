@@ -2866,12 +2866,12 @@ export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
 
 export type Unnamed_1_Query = { site?: Maybe<Pick<Site, 'buildTime'>> };
 
-export type Unnamed_2_QueryVariables = Exact<{
+export type PostDataQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
 
 
-export type Unnamed_2_Query = { markdownRemark?: Maybe<(
+export type PostDataQuery = { markdownRemark?: Maybe<(
     Pick<MarkdownRemark, 'html'>
     & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'tags' | 'date'>> }
   )> };

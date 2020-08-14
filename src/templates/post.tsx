@@ -1,10 +1,27 @@
 import React from "react"
 import { graphql } from "gatsby"
-
 import Layout from "../components/layout"
 import Tags from "../components/Tags"
+import { PostDataQuery } from "../../gatsby-graphql"
 
-export default ({ data }) => {
+type PostData = {
+  data: PostDataQuery
+}
+
+export const query = graphql`
+  query PostData($slug: String!) {
+    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
+      html
+      frontmatter {
+        title
+        tags
+        date(formatString: "ll")
+      }
+    }
+  }
+`
+
+const PostPage: React.FC<PostData> = ({ data }) => {
   const post = data.markdownRemark
   return (
     <Layout>
@@ -16,20 +33,13 @@ export default ({ data }) => {
           </div>
         </div>
         <h1>{post.frontmatter.title}</h1>
-        <div className="post-page-contents" dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div
+          className="post-page-contents"
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
       </div>
     </Layout>
   )
 }
-export const query = graphql`
-  query($slug: String!) {
-    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
-      html
-      frontmatter {
-        title
-        tags
-        date(formatString: "ll")
-      }
-    }
-  }
-`
+
+export default PostPage
