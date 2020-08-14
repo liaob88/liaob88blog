@@ -36,8 +36,8 @@ const IndexPage: React.FC<IndexPageData> = ({ data }) => {
         const { frontmatter } = node
         const { slug, title, date, tags, description } = frontmatter
         return (
-          <div className="article-wrapper">
-            <article key={slug}>
+          <article key={slug}>
+            <div className="article-contents">
               <h2 className="article-title">
                 <Link to={`/${slug}`}>{title}</Link>
               </h2>
@@ -50,8 +50,8 @@ const IndexPage: React.FC<IndexPageData> = ({ data }) => {
                   {date}
                 </time>
               </div>
-            </article>
-          </div>
+            </div>
+          </article>
         )
       })}
     </Layout>
