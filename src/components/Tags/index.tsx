@@ -10,14 +10,4 @@ const Tags = ({ tags }) => {
   ))
 }
 
-// type TagsType = string[]
-
-// const Tags = (tags: TagsType) => {
-//   return tags.map((tag: string, i: number) => (
-//     <Link className="tag-name" key={i} to={`/tags/${tag}`}>
-//       {tag}
-//     </Link>
-//   ))
-// }
-
 export default Tags

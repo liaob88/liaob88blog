@@ -631,7 +631,42 @@ pre tt:after {
   html {
     font-size: 100%;
   }
+  main {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
 }
 .text-align-center {
   text-align: center;
+}
+
+.article-contents {
+  border-bottom: 1px solid rgb(238, 235, 241);
+  padding: 12px;
+}
+
+.article-title {
+  margin: 0.5rem 0;
+  font-size: 17px;
+}
+
+.article-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.article-description {
+  margin-bottom: 0;
+  font-size: 11px;
+  color: #9c9696;
+}
+
+.article-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article-info time {
+  font-size: 14px;
 }
