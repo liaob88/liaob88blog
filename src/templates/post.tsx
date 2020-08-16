@@ -1,11 +1,13 @@
-import React from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import Tags from "../components/Tags"
-import { PostDataQuery } from "../../gatsby-graphql"
+import { graphql } from "gatsby";
+import React from "react";
+import { PostDataQuery, SitePageContext } from "../../gatsby-graphql";
+import Layout from "../components/layout";
+import { BlogPagePagination } from "../components/PageNation";
+import Tags from "../components/Tags";
 
 type PostData = {
   data: PostDataQuery
+  pageContext: SitePageContext
 }
 
 export const query = graphql`
@@ -21,7 +23,9 @@ export const query = graphql`
   }
 `
 
-const PostPage: React.FC<PostData> = ({ data }) => {
+const PostPage: React.FC<PostData> = ({ data, pageContext }) => {
+  const { previous, next } = pageContext
+
   const post = data.markdownRemark
   return (
     <Layout>
@@ -37,6 +41,7 @@ const PostPage: React.FC<PostData> = ({ data }) => {
           className="post-page-contents"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
+        <BlogPagePagination previous={previous} next={next} />
       </div>
     </Layout>
   )
