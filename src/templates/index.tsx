@@ -1,7 +1,7 @@
 import { graphql } from "gatsby"
 import React from "react"
 import { IndexPageDataQuery, SitePageContext } from "../../gatsby-graphql"
-import BlogListItem from "../components/blogListItem"
+import BlogListItem from "../components/BlogListItem"
 import Layout from "../components/layout"
 import { IndexPagePagination } from "../components/PageNation"
 import SEO from "../components/seo"
