@@ -1,0 +1,24 @@
+.page-lists {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
+
+.page-item {
+  margin: 0;
+}
+
+.page-link {
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
+}
+
+.on-current {
+  color: white;
+  background: coral;
+}
