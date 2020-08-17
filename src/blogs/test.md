@@ -1,10 +1,10 @@
 ---
 layout: Test
 title: Test
-description: おさらいするおさらいするdescriptiondescriptionおさらいするおさらいするおさらいする
+description: markdown test
 date: 2020-08-09 00:00
 slug: "test"
-tags: [Android, Java, Geo, GoogleMapsAPI]
+tags: [test]
 ---
 
 # h1 Heading 8-)
@@ -116,19 +116,19 @@ console.log(foo(5));
 
 ## Tables
 
-| Option | Description |
-| ------ | ----------- |
+| Option | Description                                                               |
+| ------ | ------------------------------------------------------------------------- |
 | data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
+| engine | engine to be used for processing templates. Handlebars is the default.    |
+| ext    | extension to be used for dest files.                                      |
 
 Right aligned columns
 
-| Option | Description |
-| ------:| -----------:|
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
+| Option |                                                               Description |
+| -----: | ------------------------------------------------------------------------: |
+|   data | path to data files to supply the data that will be passed into templates. |
+| engine |    engine to be used for processing templates. Handlebars is the default. |
+|    ext |                                      extension to be used for dest files. |
 
 
 ## Links
