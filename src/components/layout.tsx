@@ -16,15 +16,13 @@ const Layout: React.FC<ReactNode> = ({ children }) => {
   `)
 
   return (
-    <>
+    <div className="contents-wrapper">
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div className="contents-wrapper">
+      <div className="main-wrapper">
         <main>{children}</main>
       </div>
-      <footer>
-        <text> © liao3 {new Date().getFullYear()}. All Rights Reserved</text>
-      </footer>
-    </>
+      <footer>©liao3 {new Date().getFullYear()}. All Rights Reserved</footer>
+    </div>
   )
 }
 
