@@ -2,7 +2,7 @@ import { graphql } from "gatsby";
 import React from "react";
 import { PostDataQuery, SitePageContext } from "../../gatsby-graphql";
 import Layout from "../components/layout";
-import { BlogPagePagination } from "../components/PageNation";
+import { BlogPagePagination } from '../components/Pagination';
 import Tags from "../components/Tags";
 
 type PostData = {

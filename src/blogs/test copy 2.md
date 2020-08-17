@@ -4,7 +4,7 @@ title: React Visual Studio Codeで開発環境を整える
 description: おさらいするおさらいするdescriptiondescriptionおさらいするおさらいするおさらいする
 date: 2020-08-12 00:00
 slug: "test2"
-tags: [Android]
+tags: [Android, kotlin]
 ---
 
 # h1 Heading 8-)

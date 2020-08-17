@@ -2314,6 +2314,9 @@ export type SitePageContext = {
   skip?: Maybe<Scalars['Int']>;
   numPages?: Maybe<Scalars['Int']>;
   currentPage?: Maybe<Scalars['Int']>;
+  tag?: Maybe<Scalars['String']>;
+  totalCount?: Maybe<Scalars['Int']>;
+  numTagPages?: Maybe<Scalars['Int']>;
 };
 
 export type SitePageContextFilterInput = {
@@ -2325,6 +2328,9 @@ export type SitePageContextFilterInput = {
   skip?: Maybe<IntQueryOperatorInput>;
   numPages?: Maybe<IntQueryOperatorInput>;
   currentPage?: Maybe<IntQueryOperatorInput>;
+  tag?: Maybe<StringQueryOperatorInput>;
+  totalCount?: Maybe<IntQueryOperatorInput>;
+  numTagPages?: Maybe<IntQueryOperatorInput>;
 };
 
 export type SitePageContextNext = {
@@ -2338,11 +2344,13 @@ export type SitePageContextNextFilterInput = {
 export type SitePageContextNextFrontmatter = {
   title?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type SitePageContextNextFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextPrevious = {
@@ -2356,11 +2364,13 @@ export type SitePageContextPreviousFilterInput = {
 export type SitePageContextPreviousFrontmatter = {
   title?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type SitePageContextPreviousFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageEdge = {
@@ -2466,12 +2476,17 @@ export type SitePageFieldsEnum =
   | 'context___title'
   | 'context___previous___frontmatter___title'
   | 'context___previous___frontmatter___slug'
+  | 'context___previous___frontmatter___tags'
   | 'context___next___frontmatter___title'
   | 'context___next___frontmatter___slug'
+  | 'context___next___frontmatter___tags'
   | 'context___limit'
   | 'context___skip'
   | 'context___numPages'
   | 'context___currentPage'
+  | 'context___tag'
+  | 'context___totalCount'
+  | 'context___numTagPages'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -2924,6 +2939,15 @@ export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type Unnamed_1_Query = { site?: Maybe<Pick<Site, 'buildTime'>> };
+
+export type TagsPageDataQueryVariables = Exact<{
+  tag?: Maybe<Scalars['String']>;
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
+}>;
+
+
+export type TagsPageDataQuery = { allMarkdownRemark: { edges: Array<{ node: { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'date' | 'description' | 'slug' | 'tags'>> } }> } };
 
 export type IndexPageDataQueryVariables = Exact<{
   skip: Scalars['Int'];

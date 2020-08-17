@@ -3,7 +3,7 @@ import React from "react"
 import { IndexPageDataQuery, SitePageContext } from "../../gatsby-graphql"
 import BlogListItem from "../components/BlogListItem"
 import Layout from "../components/layout"
-import { IndexPagePagination } from "../components/PageNation"
+import { Pagination } from "../components/Pagination"
 import SEO from "../components/seo"
 
 type IndexPageProps = {
@@ -46,7 +46,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data, pageContext }) => {
       <SEO title="Home" />
       <h1 className="text-align-center">Posts</h1>
       <BlogListItem posts={posts} />
-      <IndexPagePagination
+      <Pagination
         isFirst={isFirst}
         isLast={isLast}
         prevPage={prevPage}

@@ -6,7 +6,7 @@ import {
 } from "../../../gatsby-graphql"
 import "./pagination.css"
 
-interface IndexPageProps {
+interface PaginationProps {
   isFirst: boolean
   isLast: boolean
   prevPage: string
@@ -20,7 +20,7 @@ interface BlogPageProps {
   next: SitePageContextNext
 }
 
-export const IndexPagePagination: React.FC<IndexPageProps> = ({
+export const Pagination: React.FC<PaginationProps> = ({
   isFirst,
   isLast,
   prevPage,
@@ -61,17 +61,17 @@ export const BlogPagePagination: React.FC<BlogPageProps> = ({
   previous,
   next,
 }) => (
-  <ul>
+  <ul className="page-lists">
     <li>
       {previous && (
-        <Link to={previous.frontmatter.slug}>
+        <Link to={"/" + previous.frontmatter.slug}>
           ← {previous.frontmatter.title}
         </Link>
       )}
     </li>
     <li>
       {next && (
-        <Link to={next.frontmatter.slug}>{next.frontmatter.title} →</Link>
+        <Link to={"/" + next.frontmatter.slug}>{next.frontmatter.title} →</Link>
       )}
     </li>
   </ul>
