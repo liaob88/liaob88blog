@@ -28,17 +28,19 @@ export const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   numPages,
 }) => {
-  const pageNumbers = Array.from({ length: numPages }, (_, i) => (
-    <li key={`pagination-number${i + 1}`} className="page-item">
-      <Link
-        key={`pagination-number${i + 1}`}
-        to={`/${i === 0 ? "" : i + 1}`}
-        className={`page-link ${i + 1 === currentPage ? "on-current" : ""}`}
-      >
-        {i + 1}
-      </Link>
-    </li>
-  ))
+  const pageNumbers =
+    numPages > 1 &&
+    Array.from({ length: numPages }, (_, i) => (
+      <li key={`pagination-number${i + 1}`} className="page-item">
+        <Link
+          key={`pagination-number${i + 1}`}
+          to={`/${i === 0 ? "" : i + 1}`}
+          className={`page-link ${i + 1 === currentPage ? "on-current" : ""}`}
+        >
+          {i + 1}
+        </Link>
+      </li>
+    ))
 
   return (
     <ul className="page-lists">
