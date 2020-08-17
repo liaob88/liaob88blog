@@ -31,6 +31,8 @@ footer {
   text-align: center;
   color: white;
   background: coral;
+  margin-top: auto;
+  width: 100%;
 }
 audio,
 canvas,
@@ -633,9 +635,9 @@ pre tt:after {
 }
 
 .contents-wrapper {
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 0.5rem 1.0875rem 5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .header-content {
@@ -654,6 +656,13 @@ pre tt:after {
   border-bottom: dotted coral 4px;
   display: inline-block;
   padding-bottom: 0.5rem;
+}
+
+.main-wrapper {
+  max-width: 960px;
+  padding: 0.5rem 1.0875rem;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .text-align-center {
