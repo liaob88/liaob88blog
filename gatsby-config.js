@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `liao3deblog`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@liao3`,
+    title: `liaob88devlog`,
+    description: `liaob88devlog`,
+    author: `@liaob88`,
   },
   plugins: [
     {

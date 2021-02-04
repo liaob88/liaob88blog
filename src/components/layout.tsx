@@ -21,7 +21,7 @@ const Layout: React.FC<ReactNode> = ({ children }) => {
       <div className="main-wrapper">
         <main>{children}</main>
       </div>
-      <footer>©liao3 {new Date().getFullYear()}. All Rights Reserved</footer>
+      <footer>©liaob88 {new Date().getFullYear()}. All Rights Reserved</footer>
     </div>
   )
 }
