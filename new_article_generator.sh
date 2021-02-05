@@ -3,8 +3,8 @@ echo 'Type new article title'
 read TITLE
 echo 'Type new article description'
 read DESCRIPTION
-echo 'Type new article slag'
-read SLAG
+echo 'Type new article slug'
+read SLUG
 echo 'Type new article tags'
 declare TAGS=()
 read TAGS
@@ -17,7 +17,7 @@ cat <<EOF > "src/blogs/${TITLE}.md"
 title: $TITLE
 description: $DESCRIPTION
 date: $NOW
-slug: $SLAG
+slug: $SLUG
 tags: [$TAGS]
 ---
 ##
