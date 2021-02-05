@@ -3,8 +3,8 @@ echo 'Type new article title'
 read TITLE
 echo 'Type new article description'
 read DESCRIPTION
-echo 'Type new article slag'
-read SLAG
+echo 'Type new article slug'
+read SLUG
 echo 'Type new article tags'
 declare TAGS=()
 read TAGS
@@ -12,12 +12,12 @@ NOW=`date "+%Y-%m-%d %H:%M"`
 
 # Generate new md file with writing the article info on the file
 echo 'In Progress...'
-cat <<EOF > "src/blogs/${TITLE}.md"
+cat <<EOF > "src/blogs/${SLUG}.md"
 ---
 title: $TITLE
 description: $DESCRIPTION
 date: $NOW
-slug: $SLAG
+slug: $SLUG
 tags: [$TAGS]
 ---
 ##
