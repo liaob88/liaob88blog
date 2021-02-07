@@ -6,6 +6,16 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+        head: true,
+        anonymize: true,
+        respectDNT: true,
+        exclude: ["/preview/**"],
+      },
+    },
+    {
       resolve: `gatsby-plugin-graphql-codegen`,
       options: {
         fileName: `./gatsby-graphql.ts`,
