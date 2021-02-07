@@ -4,6 +4,7 @@ import { SitePageContext, TagsPageDataQuery } from "../../gatsby-graphql"
 import BlogListItem from "../components/BlogListItem"
 import Layout from "../components/layout"
 import { Pagination } from "../components/Pagination"
+import SEO from "../components/seo"
 
 export const query = graphql`
   query TagsPageData($tag: String, $skip: Int!, $limit: Int!) {
@@ -42,6 +43,7 @@ const TagPage: React.FC<TagPageProps> = ({ pageContext, data }) => {
   const nextPage = (currentPage + 1).toString()
   return (
     <Layout>
+      <SEO title={tag} />
       <div>
         <h2 className="text-align-center">"{tag}"</h2>
         <p className="text-align-center">{totalCount} posts</p>

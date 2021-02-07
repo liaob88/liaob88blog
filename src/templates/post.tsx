@@ -4,6 +4,7 @@ import { PostDataQuery, SitePageContext } from "../../gatsby-graphql";
 import Layout from "../components/layout";
 import { BlogPagePagination } from '../components/Pagination';
 import Tags from "../components/Tags";
+import SEO from "../components/seo"
 
 type PostData = {
   data: PostDataQuery
@@ -29,6 +30,7 @@ const PostPage: React.FC<PostData> = ({ data, pageContext }) => {
   const post = data.markdownRemark
   return (
     <Layout>
+      <SEO title={post.frontmatter.title} />
       <div className="post-page-wrapper">
         <div className="post-page-info">
           <time>{post.frontmatter.date}</time>
