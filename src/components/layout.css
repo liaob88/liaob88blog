@@ -644,6 +644,10 @@ pre tt:after {
   }
 }
 
+time {
+  font-family: initial;
+}
+
 .contents-wrapper {
   display: flex;
   flex-direction: column;

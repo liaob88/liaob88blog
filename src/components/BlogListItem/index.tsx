@@ -1,4 +1,5 @@
 import { Link } from "gatsby"
+import moment from "moment"
 import React from "react"
 import { MarkdownRemarkFrontmatter, Maybe } from "../../../gatsby-graphql"
 import Tags from "../Tags"
@@ -33,8 +34,11 @@ const BlogListItem: React.FC<BlogListItemProps> = ({ posts }) => (
               <div className="tags-wrapper">
                 <Tags tags={tags} />
               </div>
-              <time className="index-time" dateTime={date}>
-                {date}
+              <time
+                className="index-time"
+                dateTime={moment(date).format(`MM.DD.YYYY`)}
+              >
+                {moment(date).format(`MM.DD.YYYY`)}
               </time>
             </div>
           </div>

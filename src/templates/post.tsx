@@ -1,10 +1,11 @@
 import { graphql } from "gatsby";
+import moment from "moment";
 import React from "react";
 import { PostDataQuery, SitePageContext } from "../../gatsby-graphql";
 import Layout from "../components/layout";
-import { BlogPagePagination } from '../components/Pagination';
+import { BlogPagePagination } from "../components/Pagination";
+import SEO from "../components/seo";
 import Tags from "../components/Tags";
-import SEO from "../components/seo"
 
 type PostData = {
   data: PostDataQuery
@@ -18,7 +19,7 @@ export const query = graphql`
       frontmatter {
         title
         tags
-        date(formatString: "ll")
+        date
       }
     }
   }
@@ -33,7 +34,7 @@ const PostPage: React.FC<PostData> = ({ data, pageContext }) => {
       <SEO title={post.frontmatter.title} />
       <div className="post-page-wrapper">
         <div className="post-page-info">
-          <time>{post.frontmatter.date}</time>
+          <time>{moment(post.frontmatter.date).format(`MM.DD.YYYY`)}</time>
           <div className="tags-wrapper">
             <Tags tags={post.frontmatter.tags} />
           </div>
