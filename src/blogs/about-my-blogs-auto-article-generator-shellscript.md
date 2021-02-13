@@ -86,8 +86,8 @@ read TAGS
 ### 複数行で構成される文字列をファイルに書き出す
 こちらの記事を見ました
 >catコマンドは引数を付けずに実行すると標準入力の内容をそのまま標準出力に出力するのだが、これを利用してリダイレクトで任意の内容を(コマンド実行により)ファイルに書き出すことができる。
+<cite>https://kakurasan.hatenadiary.jp/entry/20091124/p1</cite>
 
-https://kakurasan.hatenadiary.jp/entry/20091124/p1
 
 cat コマンドでできるのは学びでした。
 
