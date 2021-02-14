@@ -211,7 +211,7 @@ html {
 }
 body {
   color: hsla(0, 0%, 0%, 0.8);
-  font-family: georgia, serif;
+  font-family: san-serif;
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;
@@ -727,6 +727,10 @@ li {
   display: block;
   text-align: end;
   margin-bottom: 1rem;
+}
+
+.post-page-contents {
+  border-bottom: 1px dotted;
 }
 
 .post-page-contents h2 {

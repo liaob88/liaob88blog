@@ -3,7 +3,7 @@ import moment from "moment"
 import React from "react"
 import { PostDataQuery, SitePageContext } from "../../gatsby-graphql"
 import Layout from "../components/layout"
-import { BlogPagePagination } from "../components/Pagination"
+import { PostPagePagination } from "../components/Pagination"
 import SEO from "../components/seo"
 import Tags from "../components/Tags"
 
@@ -44,7 +44,7 @@ const PostPage: React.FC<PostData> = ({ data, pageContext }) => {
           className="post-page-contents"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
-        <BlogPagePagination previous={previous} next={next} />
+        <PostPagePagination previous={previous} next={next} />
       </div>
     </Layout>
   )

@@ -1,7 +1,7 @@
 .page-lists {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   list-style: none;
   padding: 0;
@@ -21,4 +21,33 @@
 .on-current {
   color: white;
   background: coral;
+}
+
+.postPagePagination-lists {
+  padding: 1.2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 0;
+}
+
+.postPagePagination-lists li {
+  list-style: none;
+  width: 30%;
+}
+
+.postPagePagination-lists li a {
+  text-decoration: none;
+}
+
+.postPagePagination-lists li:nth-child(2) {
+  text-align: center;
+}
+
+@media only screen and (max-width: 480px) {
+  .postPagePagination-lists {
+    display: block;
+  }
+  .postPagePagination-lists li {
+    width: 100%;
+  }
 }
