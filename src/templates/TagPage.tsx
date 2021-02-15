@@ -18,7 +18,7 @@ export const query = graphql`
         node {
           frontmatter {
             title
-            date(formatString: "ll")
+            date
             description
             slug
             tags

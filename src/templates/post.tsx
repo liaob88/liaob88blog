@@ -1,10 +1,11 @@
-import { graphql } from "gatsby";
-import React from "react";
-import { PostDataQuery, SitePageContext } from "../../gatsby-graphql";
-import Layout from "../components/layout";
-import { BlogPagePagination } from '../components/Pagination';
-import Tags from "../components/Tags";
+import { graphql } from "gatsby"
+import moment from "moment"
+import React from "react"
+import { PostDataQuery, SitePageContext } from "../../gatsby-graphql"
+import Layout from "../components/layout"
+import { PostPagePagination } from "../components/Pagination"
 import SEO from "../components/seo"
+import Tags from "../components/Tags"
 
 type PostData = {
   data: PostDataQuery
@@ -18,7 +19,7 @@ export const query = graphql`
       frontmatter {
         title
         tags
-        date(formatString: "ll")
+        date
       }
     }
   }
@@ -32,18 +33,18 @@ const PostPage: React.FC<PostData> = ({ data, pageContext }) => {
     <Layout>
       <SEO title={post.frontmatter.title} />
       <div className="post-page-wrapper">
+        <time>作成日: {moment(post.frontmatter.date).format(`MM.DD.YYYY`)}</time>
+        <h1>{post.frontmatter.title}</h1>
         <div className="post-page-info">
-          <time>{post.frontmatter.date}</time>
           <div className="tags-wrapper">
             <Tags tags={post.frontmatter.tags} />
           </div>
         </div>
-        <h1>{post.frontmatter.title}</h1>
         <div
           className="post-page-contents"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
-        <BlogPagePagination previous={previous} next={next} />
+        <PostPagePagination previous={previous} next={next} />
       </div>
     </Layout>
   )

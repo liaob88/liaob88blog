@@ -69,7 +69,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
     })
   })
   // pagination configuration
-  const postsPerPage = 10
+  const postsPerPage = 5
 
   // templates/index.tsx
   const numPages = Math.ceil(posts.length / postsPerPage)
