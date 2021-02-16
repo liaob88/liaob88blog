@@ -39,7 +39,7 @@ const PostPage: React.FC<PostData> = ({ data, pageContext }) => {
           作成日: {moment(post.frontmatter.date).format(`MM.DD.YYYY`)}
         </time>
         <h1>{post.frontmatter.title}</h1>
-        <TagsWrapper>
+        <TagsWrapper $bottomSpace={true}>
           <Tags tags={post.frontmatter.tags} />
         </TagsWrapper>
         <PostContentsWrapper dangerouslySetInnerHTML={{ __html: post.html }} />

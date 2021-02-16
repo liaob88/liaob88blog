@@ -4,7 +4,7 @@ import React, { Fragment } from "react"
 import { MarkdownRemarkFrontmatter, Maybe } from "../../../gatsby-graphql"
 import Tags from "./Tags"
 import styled from "styled-components"
-import { TagsWrapper } from '../Styles';
+import { TagsWrapper } from "../Styles"
 
 type BlogListItemProps = {
   posts: {

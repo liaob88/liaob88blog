@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components"
+import styled, { createGlobalStyle, css } from "styled-components"
 
 export const GlobalStyle = createGlobalStyle`
   html {
@@ -649,7 +649,11 @@ export const GlobalStyle = createGlobalStyle`
   }
 `
 
-export const TagsWrapper = styled.div`
+export const TagsWrapper = styled.div<{ $bottomSpace?: boolean }>`
   text-align: center;
-  margin-bottom: 1rem;
+  ${props =>
+    props.$bottomSpace &&
+    css`
+      margin-bottom: 1rem;
+    `};
 `
