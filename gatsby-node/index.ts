@@ -1,6 +1,6 @@
-import { GatsbyNode } from "gatsby";
-import * as path from "path";
-import { MarkdownRemarkFrontmatter } from './../gatsby-graphql';
+import { GatsbyNode } from "gatsby"
+import * as path from "path"
+import { MarkdownRemarkFrontmatter } from "../gatsby-graphql"
 
 const query = `
   {
@@ -53,13 +53,12 @@ export const createPages: GatsbyNode["createPages"] = async ({
 
   // templates/post.tsx
   const posts = result.data.postsRemark.edges
-  const blogPost = path.resolve(`./src/templates/post.tsx`)
   posts.forEach(({ node }, index) => {
     const next = getNextPost(index)
     const previous = getPreviousPost(index)
     createPage({
       path: node.frontmatter.slug,
-      component: blogPost,
+      component: path.resolve("./src/templates/Post.tsx"),
       context: {
         slug: node.frontmatter.slug,
         title: node.frontmatter.title,
@@ -76,7 +75,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
       path: i === 0 ? "/" : `/${i + 1}`,
-      component: path.resolve("./src/templates/index.tsx"),
+      component: path.resolve("./src/templates/Index.tsx"),
       context: {
         limit: postsPerPage,
         skip: i * postsPerPage,
@@ -94,7 +93,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
       const pageNumber = i === 0 ? "" : `/${i + 1}`
       createPage({
         path: `/tags/${fieldValue}/${pageNumber}`,
-        component: path.resolve("./src/templates/TagPage.tsx"),
+        component: path.resolve("./src/templates/Tag.tsx"),
         context: {
           tag: fieldValue,
           limit: postsPerPage,
