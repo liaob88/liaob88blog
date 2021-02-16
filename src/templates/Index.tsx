@@ -1,10 +1,11 @@
 import { graphql } from "gatsby"
 import React from "react"
+import styled from "styled-components"
+import BlogList from "../shared/components/BlogList"
+import Layout from "../shared/components/Layout"
+import SEO from "../shared/components/seo"
+import { Pagination } from "../shared/components/Pagination/Pagination"
 import { IndexPageDataQuery, SitePageContext } from "../../gatsby-graphql"
-import BlogListItem from "../components/BlogListItem"
-import Layout from "../components/layout"
-import { Pagination } from "../components/Pagination"
-import SEO from "../components/seo"
 
 type IndexPageProps = {
   data: IndexPageDataQuery
@@ -36,26 +37,21 @@ export const query = graphql`
 const IndexPage: React.FC<IndexPageProps> = ({ data, pageContext }) => {
   const posts = data.allMarkdownRemark.edges
   const { currentPage, numPages } = pageContext
-  const isFirst = currentPage === 1
-  const isLast = currentPage === numPages
-  const prevPage = currentPage - 1 === 1 ? "/" : (currentPage - 1).toString()
-  const nextPage = (currentPage + 1).toString()
 
   return (
     <Layout>
       <SEO title="Home" />
-      <h1 className="text-align-center">Posts</h1>
-      <BlogListItem posts={posts} />
-      <Pagination
-        isFirst={isFirst}
-        isLast={isLast}
-        prevPage={prevPage}
-        nextPage={nextPage}
-        currentPage={currentPage}
-        numPages={numPages}
-      />
+      <h1>Posts</h1>
+      <BlogListWrapper>
+        <BlogList posts={posts} />
+      </BlogListWrapper>
+      <Pagination currentPage={currentPage} numPages={numPages} />
     </Layout>
   )
 }
+
+const BlogListWrapper = styled.div`
+  margin-bottom: 2rem;
+`
 
 export default IndexPage
