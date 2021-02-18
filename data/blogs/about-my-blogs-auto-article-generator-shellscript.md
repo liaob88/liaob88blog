@@ -52,11 +52,11 @@ echo 'Done! File created!'
 ## できたこと
 ターミナル上ではこんな感じで操作します。
 
-![](../images/about-my-blogs-auto-article-generator-shellscript/shellscript_operation.png)
+![](../../src/images/about-my-blogs-auto-article-generator-shellscript/shellscript_operation.png)
 
 生成されたファイルはこんな感じです
 
-![](../images/about-my-blogs-auto-article-generator-shellscript/generated_file.png)
+![](../../src/images/about-my-blogs-auto-article-generator-shellscript/generated_file.png)
 
 
 とりあえずこれでやりたいことはできた感じです。
