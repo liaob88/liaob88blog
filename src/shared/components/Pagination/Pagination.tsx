@@ -39,5 +39,5 @@ const PaginationLink = styled(Link)<{ $isCurrentPage: boolean }>`
   text-decoration: none;
   border-radius: 10px;
   color: ${props => (props.$isCurrentPage ? "white" : "inherit")};
-  background: ${props => props.$isCurrentPage && "coral"};
+  background: ${props => props.$isCurrentPage && "#feb530"};
 `

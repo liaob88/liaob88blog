@@ -1,6 +1,6 @@
-import { Link } from "gatsby";
-import React, { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
+import { Link } from "gatsby"
+import React, { useEffect, useState } from "react"
+import styled, { css } from "styled-components"
 
 type HeaderProps = { siteTitle: string }
 
@@ -40,7 +40,7 @@ const SiteTitle = styled(Link)`
   text-align: center;
   font-size: 2rem;
   margin: 0;
-  color: navajowhite;
+  color: #feb530;
   text-decoration: none;
   font-weight: bold;
   padding: 0.5rem;
@@ -59,11 +59,13 @@ const HederLink = styled(Link)<{ $isCurrent: boolean }>`
   color: inherit;
   text-decoration: none;
   padding: 0.5rem;
+  font-weight: bold;
+  font-size: 0.9rem;
   display: inline-block;
   ${props =>
     props.$isCurrent &&
     css`
-      background: #fff1ec;
+      background: #feb530;
       border-radius: 5px;
     `};
   @media only screen and (max-width: 480px) {

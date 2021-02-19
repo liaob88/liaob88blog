@@ -10,8 +10,8 @@ const Footer = ({ author }) => (
 const StyledFooter = styled.footer`
   padding: 2rem 3rem;
   text-align: center;
-  color: white;
-  background: coral;
+  color: inherit;
+  background: #feb530;
   margin-top: auto;
   width: 100%;
 `

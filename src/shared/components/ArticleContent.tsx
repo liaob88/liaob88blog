@@ -39,11 +39,11 @@ const PostPageWrapper = styled.div`
 
 const MarkdownContent = styled.div`
   h2 {
-    border-left: 5px solid coral;
+    border-left: 5px solid #feb530;
     padding-left: 15px;
   }
   h3 {
-    border-bottom: 5px double coral;
+    border-bottom: 5px double #feb530;
     display: inline-block;
   }
   a {
