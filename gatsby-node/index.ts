@@ -5,8 +5,9 @@ import { MarkdownRemarkFrontmatter } from "../gatsby-graphql"
 const query = `
   {
     postsRemark: allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: ASC }
-    ) {
+      sort: {fields: frontmatter___date, order: ASC}, 
+      filter: {fileAbsolutePath: {regex: "/blogs/"}}) 
+    {
       edges {
         node {
           frontmatter {

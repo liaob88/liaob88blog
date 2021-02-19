@@ -1,33 +1,73 @@
-import { Link } from "gatsby"
-import React from "react"
-import styled from "styled-components"
+import { Link } from "gatsby";
+import React, { useEffect, useState } from "react";
+import styled, { css } from "styled-components";
 
 type HeaderProps = { siteTitle: string }
 
-const Header: React.FC<HeaderProps> = ({ siteTitle }) => (
-  <header>
-    <TitleWrapper>
-      <Title>
-        <LinkTitle to="/">{siteTitle}</LinkTitle>
-      </Title>
-    </TitleWrapper>
-  </header>
-)
+const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
+  const [currentPath, setCurrentPath] = useState("")
+  useEffect(() => {
+    setCurrentPath(window.location.pathname)
+  })
+  return (
+    <Wrapper>
+      <SiteTitle to="/">{siteTitle}</SiteTitle>
+      <HeaderLinks>
+        <HederLink to="/" $isCurrent={!(currentPath === "/about")}>
+          Posts
+        </HederLink>
+        <HederLink to="/about" $isCurrent={currentPath === "/about"}>
+          About
+        </HederLink>
+      </HeaderLinks>
+    </Wrapper>
+  )
+}
 
-const TitleWrapper = styled.div`
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 3rem 1.0875rem;
+const Wrapper = styled.header`
+  padding: 1rem 1.0875rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 0 0.1px 0.8px grey;
 `
-const Title = styled.h1`
+
+const SiteTitle = styled(Link)`
+  text-align: center;
+  font-size: 2rem;
   margin: 0;
+  color: navajowhite;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem;
+  @media only screen and (max-width: 480px) {
+    font-size: 1.5rem;
+  }
 `
 
-const LinkTitle = styled(Link)`
+const HeaderLinks = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const HederLink = styled(Link)<{ $isCurrent: boolean }>`
+  margin: 0;
   color: inherit;
   text-decoration: none;
-  border-bottom: dotted coral 4px;
+  padding: 0.5rem;
   display: inline-block;
-  padding-bottom: 0.5rem;
+  ${props =>
+    props.$isCurrent &&
+    css`
+      background: #fff1ec;
+      border-radius: 5px;
+    `};
+  @media only screen and (max-width: 480px) {
+    font-size: 0.7rem;
+  }
 `
 export default Header
