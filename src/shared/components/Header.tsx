@@ -1,18 +1,22 @@
-import { Link } from "gatsby"
-import React from "react"
-import styled, { css } from "styled-components"
+import { Link } from "gatsby";
+import React, { useEffect, useState } from "react";
+import styled, { css } from "styled-components";
 
 type HeaderProps = { siteTitle: string }
 
 const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
+  const [currentPath, setCurrentPath] = useState("")
+  useEffect(() => {
+    setCurrentPath(window.location.pathname)
+  })
   return (
     <Wrapper>
       <SiteTitle to="/">{siteTitle}</SiteTitle>
       <HeaderLinks>
-        <HederLink to="/" $isCurrent={!(location.pathname === "/about")}>
+        <HederLink to="/" $isCurrent={!(currentPath === "/about")}>
           Posts
         </HederLink>
-        <HederLink to="/about" $isCurrent={location.pathname === "/about"}>
+        <HederLink to="/about" $isCurrent={currentPath === "/about"}>
           About
         </HederLink>
       </HeaderLinks>
@@ -43,7 +47,7 @@ const SiteTitle = styled(Link)`
   @media only screen and (max-width: 480px) {
     font-size: 1.5rem;
   }
-` 
+`
 
 const HeaderLinks = styled.div`
   display: flex;
