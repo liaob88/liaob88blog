@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: #374f64;
   }
   article,
   aside,
@@ -210,7 +211,6 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
   }
   body {
-    color: hsla(0, 0%, 0%, 0.8);
     font-family: san-serif;
     font-weight: normal;
     word-wrap: break-word;

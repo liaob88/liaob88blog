@@ -1,8 +1,10 @@
-import { Link } from "@reach/router";
-import React from "react";
-import styled from "styled-components";
-import { SitePageContextNext, SitePageContextPrevious } from "../../../../gatsby-graphql";
-
+import { Link } from "@reach/router"
+import React from "react"
+import styled from "styled-components"
+import {
+  SitePageContextNext,
+  SitePageContextPrevious,
+} from "../../../../gatsby-graphql"
 
 interface Props {
   previous: SitePageContextPrevious
@@ -36,6 +38,7 @@ const PaginationLists = styled.ul`
   display: flex;
   justify-content: space-between;
   margin-left: 0;
+  border-top: 1px dotted;
 `
 
 const PaginationList = styled.li`

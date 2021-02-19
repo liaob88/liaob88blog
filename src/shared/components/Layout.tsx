@@ -1,9 +1,9 @@
+import { graphql, useStaticQuery } from "gatsby"
 import React, { Fragment } from "react"
-import styled, { createGlobalStyle } from "styled-components"
+import styled from "styled-components"
+import { GlobalStyle } from "../Styles"
 import Footer from "./Footer"
-import { useStaticQuery, graphql } from "gatsby"
 import Header from "./Header"
-import { GlobalStyle } from '../Styles';
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`

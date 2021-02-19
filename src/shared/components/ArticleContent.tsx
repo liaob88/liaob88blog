@@ -29,6 +29,7 @@ const PostPageWrapper = styled.div`
     font-size: 0.9em;
   }
   padding: 0 1rem;
+  margin-bottom: 5rem;
   time {
     display: block;
     text-align: end;
@@ -37,7 +38,6 @@ const PostPageWrapper = styled.div`
 `
 
 const MarkdownContent = styled.div`
-  border-bottom: 1px dotted;
   h2 {
     border-left: 5px solid coral;
     padding-left: 15px;
