@@ -21,8 +21,9 @@ const Tags: React.FC<Props> = ({ tags }) => {
 const TagLink = styled(Link)`
   display: inline-block;
   background-color: white;
-  color: coral;
-  border: 0.5px solid coral;
+  color: #feb530;
+  border: 0.5px solid #feb530;
+  font-weight: bold;
   text-decoration: none;
   font-size: 11px;
   padding: 0 8px;
