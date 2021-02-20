@@ -49,7 +49,7 @@ const SiteTitle = styled(Link)`
   }
 `
 
-const HeaderLinks = styled.div`
+const HeaderLinks = styled.nav`
   display: flex;
   justify-content: space-between;
 `
