@@ -12,25 +12,27 @@ interface Props {
 }
 
 export const PostPagePagination: React.FC<Props> = ({ previous, next }) => (
-  <PaginationLists>
-    <PaginationList>
-      {previous && (
-        <Link to={"/" + previous.frontmatter.slug}>
-          [前の記事] {previous.frontmatter.title}
-        </Link>
-      )}
-    </PaginationList>
-    <PaginationList>
-      <Link to="/">TOP</Link>
-    </PaginationList>
-    <PaginationList>
-      {next && (
-        <Link to={"/" + next.frontmatter.slug}>
-          [次の記事] {next.frontmatter.title}
-        </Link>
-      )}
-    </PaginationList>
-  </PaginationLists>
+  <nav>
+    <PaginationLists>
+      <PaginationList>
+        {previous && (
+          <Link to={"/" + previous.frontmatter.slug}>
+            [前の記事] {previous.frontmatter.title}
+          </Link>
+        )}
+      </PaginationList>
+      <PaginationList>
+        <Link to="/">TOP</Link>
+      </PaginationList>
+      <PaginationList>
+        {next && (
+          <Link to={"/" + next.frontmatter.slug}>
+            [次の記事] {next.frontmatter.title}
+          </Link>
+        )}
+      </PaginationList>
+    </PaginationLists>
+  </nav>
 )
 
 const PaginationLists = styled.ul`

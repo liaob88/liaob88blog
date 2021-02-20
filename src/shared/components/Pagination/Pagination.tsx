@@ -20,7 +20,11 @@ export const Pagination: React.FC<Props> = ({ currentPage, numPages }) => {
     </PaginationItem>
   ))
 
-  return <PaginationLists>{numPages > 1 && pageNumberLists}</PaginationLists>
+  return (
+    <nav>
+      <PaginationLists>{numPages > 1 && pageNumberLists}</PaginationLists>
+    </nav>
+  )
 }
 
 const PaginationLists = styled.ul`
