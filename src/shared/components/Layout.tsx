@@ -1,29 +1,20 @@
-import { graphql, useStaticQuery } from "gatsby"
 import React, { Fragment } from "react"
 import styled from "styled-components"
+import { useSiteMetadata } from "../../shared/hooks/useSiteMetaData"
 import { GlobalStyle } from "../Styles"
 import Footer from "./Footer"
 import Header from "./Header"
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    {
-      site {
-        siteMetadata {
-          title
-          author
-        }
-      }
-    }
-  `)
+  const { title, author } = useSiteMetadata()
   return (
     <Fragment>
       <GlobalStyle />
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <Header siteTitle={title} />
       <ContentsWrapper>
         <main>{children}</main>
       </ContentsWrapper>
-      <Footer author={data.site.siteMetadata.author} />
+      <Footer author={author} />
     </Fragment>
   )
 }
