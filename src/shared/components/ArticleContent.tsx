@@ -5,6 +5,10 @@ import { MarkdownRemarkFrontmatter } from "../../../gatsby-graphql"
 import { TagsWrapper } from "../Styles"
 import Tags from "./Tags"
 
+// syntax highlight
+import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader"
+deckDeckGoHighlightElement()
+
 interface Props {
   html: string
   post: MarkdownRemarkFrontmatter
