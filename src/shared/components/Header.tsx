@@ -11,29 +11,36 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   })
   return (
     <Wrapper>
-      <SiteTitle to="/">{siteTitle}</SiteTitle>
-      <HeaderLinks>
-        <HederLink to="/" $isCurrent={!(currentPath === "/about")}>
-          Posts
-        </HederLink>
-        <HederLink to="/about" $isCurrent={currentPath === "/about"}>
-          About
-        </HederLink>
-      </HeaderLinks>
+      <HeaderContents>
+        <SiteTitle to="/">{siteTitle}</SiteTitle>
+        <HeaderLinks>
+          <HederLink to="/" $isCurrent={!(currentPath === "/about")}>
+            Posts
+          </HederLink>
+          <HederLink to="/about" $isCurrent={currentPath === "/about"}>
+            About
+          </HederLink>
+        </HeaderLinks>
+      </HeaderContents>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.header`
   padding: 1rem 1.0875rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   position: sticky;
   top: 0;
   z-index: 1;
   background-color: white;
   box-shadow: 0 0.1px 0.8px grey;
+`
+
+const HeaderContents = styled.div`
+  max-width: 960px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
 `
 
 const SiteTitle = styled(Link)`
