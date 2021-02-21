@@ -5,6 +5,10 @@ import { GlobalStyle } from "../Styles"
 import Footer from "./Footer"
 import Header from "./Header"
 
+// syntax highlight
+import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader"
+deckDeckGoHighlightElement()
+
 const Layout = ({ children }) => {
   const { title, author } = useSiteMetadata()
   return (
