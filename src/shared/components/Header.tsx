@@ -1,9 +1,11 @@
 import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
 import styled, { css } from "styled-components"
+import { SiteSiteMetadata } from "../../../gatsby-graphql"
 
-type HeaderProps = { siteTitle: string }
-
+interface HeaderProps {
+  siteTitle: SiteSiteMetadata["title"]
+}
 const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   const [currentPath, setCurrentPath] = useState("")
   useEffect(() => {

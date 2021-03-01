@@ -6,17 +6,15 @@ import Tags from "./Tags"
 import styled from "styled-components"
 import { TagsWrapper } from "../Styles"
 
-type BlogListItemProps = {
-  posts: {
+interface BlogListItemProps {
+  posts: Array<{
     node: {
-      frontmatter?: Maybe<
-        Pick<
-          MarkdownRemarkFrontmatter,
-          "title" | "date" | "description" | "slug" | "tags"
-        >
+      frontmatter?: Pick<
+        MarkdownRemarkFrontmatter,
+        "title" | "date" | "description" | "slug" | "tags"
       >
     }
-  }[]
+  }>
 }
 
 const BlogList: React.FC<BlogListItemProps> = ({ posts }) => (

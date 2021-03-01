@@ -1,15 +1,16 @@
 import React, { Fragment } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
+import { MarkdownRemarkFrontmatter } from "../../../gatsby-graphql"
 
-type Props = {
-  tags: string[]
+interface Props {
+  tags: MarkdownRemarkFrontmatter["tags"]
 }
 
 const Tags: React.FC<Props> = ({ tags }) => {
   return (
     <Fragment>
-      {tags.map((tag: string, i: number) => (
+      {tags.map((tag, i) => (
         <TagLink key={i} to={`/tags/${tag}`}>
           {tag}
         </TagLink>
