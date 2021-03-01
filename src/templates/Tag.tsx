@@ -4,7 +4,7 @@ import { SitePageContext, TagsPageDataQuery } from "../../gatsby-graphql"
 import BlogListItem from "../shared/components/BlogList"
 import Layout from "../shared/components/Layout"
 import SEO from "../shared/components/seo"
-import { Pagination } from '../shared/components/Pagination/Pagination';
+import { Pagination } from "../shared/components/Pagination/Pagination"
 
 export const query = graphql`
   query TagsPageData($tag: String, $skip: Int!, $limit: Int!) {
