@@ -1,18 +1,18 @@
 import { graphql } from "gatsby"
 import React from "react"
-import { PostDataQuery, SitePageContext } from "../../gatsby-graphql"
+import { PostPageDataQuery, SitePageContext } from "../../gatsby-graphql"
 import ArticleContent from "../shared/components/ArticleContent"
 import Layout from "../shared/components/Layout"
 import { PostPagePagination } from "../shared/components/Pagination/PostPagePagination"
 import SEO from "../shared/components/seo"
 
 type PostData = {
-  data: PostDataQuery
+  data: PostPageDataQuery
   pageContext: SitePageContext
 }
 
 export const query = graphql`
-  query PostData($slug: String!) {
+  query PostPageData($slug: String!) {
     markdownRemark(frontmatter: { slug: { eq: $slug } }) {
       html
       frontmatter {

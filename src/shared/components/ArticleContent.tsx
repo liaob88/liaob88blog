@@ -1,17 +1,20 @@
+// syntax highlight
+import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader"
 import moment from "moment"
 import React from "react"
 import styled from "styled-components"
-import { MarkdownRemarkFrontmatter } from "../../../gatsby-graphql"
+import {
+  MarkdownRemark,
+  MarkdownRemarkFrontmatter,
+} from "../../../gatsby-graphql"
 import { TagsWrapper } from "../Styles"
 import Tags from "./Tags"
 
-// syntax highlight
-import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader"
 deckDeckGoHighlightElement()
 
 interface Props {
-  html: string
-  post: MarkdownRemarkFrontmatter
+  html: MarkdownRemark["html"]
+  post: Pick<MarkdownRemarkFrontmatter, "title" | "tags" | "date">
 }
 
 const ArticleContent: React.FC<Props> = ({ html, post }) => {
