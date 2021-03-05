@@ -1,5 +1,4 @@
 // syntax highlight
-import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader"
 import moment from "moment"
 import React from "react"
 import styled from "styled-components"
@@ -9,8 +8,6 @@ import {
 } from "../../../gatsby-graphql"
 import { TagsWrapper } from "../Styles"
 import Tags from "./Tags"
-
-deckDeckGoHighlightElement()
 
 interface Props {
   html: MarkdownRemark["html"]
