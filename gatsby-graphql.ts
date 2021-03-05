@@ -2,6 +2,10 @@ export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
 }
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> }
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -1750,15 +1754,15 @@ export type QuerySitePageArgs = {
   internalComponentName?: Maybe<StringQueryOperatorInput>
   componentChunkName?: Maybe<StringQueryOperatorInput>
   matchPath?: Maybe<StringQueryOperatorInput>
-  id?: Maybe<StringQueryOperatorInput>
-  parent?: Maybe<NodeFilterInput>
-  children?: Maybe<NodeFilterListInput>
-  internal?: Maybe<InternalFilterInput>
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>
   context?: Maybe<SitePageContextFilterInput>
   pluginCreator?: Maybe<SitePluginFilterInput>
   pluginCreatorId?: Maybe<StringQueryOperatorInput>
   componentPath?: Maybe<StringQueryOperatorInput>
+  id?: Maybe<StringQueryOperatorInput>
+  parent?: Maybe<NodeFilterInput>
+  children?: Maybe<NodeFilterListInput>
+  internal?: Maybe<InternalFilterInput>
 }
 
 export type QueryAllSitePageArgs = {
@@ -2191,15 +2195,15 @@ export type SitePage = Node & {
   internalComponentName: Scalars["String"]
   componentChunkName: Scalars["String"]
   matchPath?: Maybe<Scalars["String"]>
-  id: Scalars["ID"]
-  parent?: Maybe<Node>
-  children: Array<Node>
-  internal: Internal
   isCreatedByStatefulCreatePages?: Maybe<Scalars["Boolean"]>
   context?: Maybe<SitePageContext>
   pluginCreator?: Maybe<SitePlugin>
   pluginCreatorId?: Maybe<Scalars["String"]>
   componentPath?: Maybe<Scalars["String"]>
+  id: Scalars["ID"]
+  parent?: Maybe<Node>
+  children: Array<Node>
+  internal: Internal
 }
 
 export type SitePageConnection = {
@@ -2301,6 +2305,114 @@ export type SitePageFieldsEnum =
   | "internalComponentName"
   | "componentChunkName"
   | "matchPath"
+  | "isCreatedByStatefulCreatePages"
+  | "context___slug"
+  | "context___title"
+  | "context___previous___frontmatter___title"
+  | "context___previous___frontmatter___slug"
+  | "context___previous___frontmatter___tags"
+  | "context___next___frontmatter___title"
+  | "context___next___frontmatter___slug"
+  | "context___next___frontmatter___tags"
+  | "context___limit"
+  | "context___skip"
+  | "context___numPages"
+  | "context___currentPage"
+  | "context___tag"
+  | "context___totalCount"
+  | "context___numTagPages"
+  | "pluginCreator___id"
+  | "pluginCreator___parent___id"
+  | "pluginCreator___parent___parent___id"
+  | "pluginCreator___parent___parent___children"
+  | "pluginCreator___parent___children"
+  | "pluginCreator___parent___children___id"
+  | "pluginCreator___parent___children___children"
+  | "pluginCreator___parent___internal___content"
+  | "pluginCreator___parent___internal___contentDigest"
+  | "pluginCreator___parent___internal___description"
+  | "pluginCreator___parent___internal___fieldOwners"
+  | "pluginCreator___parent___internal___ignoreType"
+  | "pluginCreator___parent___internal___mediaType"
+  | "pluginCreator___parent___internal___owner"
+  | "pluginCreator___parent___internal___type"
+  | "pluginCreator___children"
+  | "pluginCreator___children___id"
+  | "pluginCreator___children___parent___id"
+  | "pluginCreator___children___parent___children"
+  | "pluginCreator___children___children"
+  | "pluginCreator___children___children___id"
+  | "pluginCreator___children___children___children"
+  | "pluginCreator___children___internal___content"
+  | "pluginCreator___children___internal___contentDigest"
+  | "pluginCreator___children___internal___description"
+  | "pluginCreator___children___internal___fieldOwners"
+  | "pluginCreator___children___internal___ignoreType"
+  | "pluginCreator___children___internal___mediaType"
+  | "pluginCreator___children___internal___owner"
+  | "pluginCreator___children___internal___type"
+  | "pluginCreator___internal___content"
+  | "pluginCreator___internal___contentDigest"
+  | "pluginCreator___internal___description"
+  | "pluginCreator___internal___fieldOwners"
+  | "pluginCreator___internal___ignoreType"
+  | "pluginCreator___internal___mediaType"
+  | "pluginCreator___internal___owner"
+  | "pluginCreator___internal___type"
+  | "pluginCreator___resolve"
+  | "pluginCreator___name"
+  | "pluginCreator___version"
+  | "pluginCreator___pluginOptions___plugins"
+  | "pluginCreator___pluginOptions___plugins___resolve"
+  | "pluginCreator___pluginOptions___plugins___id"
+  | "pluginCreator___pluginOptions___plugins___name"
+  | "pluginCreator___pluginOptions___plugins___version"
+  | "pluginCreator___pluginOptions___plugins___browserAPIs"
+  | "pluginCreator___pluginOptions___plugins___pluginFilepath"
+  | "pluginCreator___pluginOptions___fileName"
+  | "pluginCreator___pluginOptions___name"
+  | "pluginCreator___pluginOptions___path"
+  | "pluginCreator___pluginOptions___maxWidth"
+  | "pluginCreator___pluginOptions___classPrefix"
+  | "pluginCreator___pluginOptions___aliases___sh"
+  | "pluginCreator___pluginOptions___showLineNumbers"
+  | "pluginCreator___pluginOptions___noInlineHighlight"
+  | "pluginCreator___pluginOptions___prompt___user"
+  | "pluginCreator___pluginOptions___prompt___host"
+  | "pluginCreator___pluginOptions___prompt___global"
+  | "pluginCreator___pluginOptions___short_name"
+  | "pluginCreator___pluginOptions___start_url"
+  | "pluginCreator___pluginOptions___background_color"
+  | "pluginCreator___pluginOptions___theme_color"
+  | "pluginCreator___pluginOptions___display"
+  | "pluginCreator___pluginOptions___icon"
+  | "pluginCreator___pluginOptions___cache_busting_mode"
+  | "pluginCreator___pluginOptions___include_favicon"
+  | "pluginCreator___pluginOptions___legacy"
+  | "pluginCreator___pluginOptions___theme_color_in_head"
+  | "pluginCreator___pluginOptions___cacheDigest"
+  | "pluginCreator___pluginOptions___pathCheck"
+  | "pluginCreator___nodeAPIs"
+  | "pluginCreator___browserAPIs"
+  | "pluginCreator___ssrAPIs"
+  | "pluginCreator___pluginFilepath"
+  | "pluginCreator___packageJson___name"
+  | "pluginCreator___packageJson___description"
+  | "pluginCreator___packageJson___version"
+  | "pluginCreator___packageJson___main"
+  | "pluginCreator___packageJson___license"
+  | "pluginCreator___packageJson___dependencies"
+  | "pluginCreator___packageJson___dependencies___name"
+  | "pluginCreator___packageJson___dependencies___version"
+  | "pluginCreator___packageJson___devDependencies"
+  | "pluginCreator___packageJson___devDependencies___name"
+  | "pluginCreator___packageJson___devDependencies___version"
+  | "pluginCreator___packageJson___peerDependencies"
+  | "pluginCreator___packageJson___peerDependencies___name"
+  | "pluginCreator___packageJson___peerDependencies___version"
+  | "pluginCreator___packageJson___keywords"
+  | "pluginCreatorId"
+  | "componentPath"
   | "id"
   | "parent___id"
   | "parent___parent___id"
@@ -2387,110 +2499,6 @@ export type SitePageFieldsEnum =
   | "internal___mediaType"
   | "internal___owner"
   | "internal___type"
-  | "isCreatedByStatefulCreatePages"
-  | "context___slug"
-  | "context___title"
-  | "context___previous___frontmatter___title"
-  | "context___previous___frontmatter___slug"
-  | "context___previous___frontmatter___tags"
-  | "context___next___frontmatter___title"
-  | "context___next___frontmatter___slug"
-  | "context___next___frontmatter___tags"
-  | "context___limit"
-  | "context___skip"
-  | "context___numPages"
-  | "context___currentPage"
-  | "context___tag"
-  | "context___totalCount"
-  | "context___numTagPages"
-  | "pluginCreator___id"
-  | "pluginCreator___parent___id"
-  | "pluginCreator___parent___parent___id"
-  | "pluginCreator___parent___parent___children"
-  | "pluginCreator___parent___children"
-  | "pluginCreator___parent___children___id"
-  | "pluginCreator___parent___children___children"
-  | "pluginCreator___parent___internal___content"
-  | "pluginCreator___parent___internal___contentDigest"
-  | "pluginCreator___parent___internal___description"
-  | "pluginCreator___parent___internal___fieldOwners"
-  | "pluginCreator___parent___internal___ignoreType"
-  | "pluginCreator___parent___internal___mediaType"
-  | "pluginCreator___parent___internal___owner"
-  | "pluginCreator___parent___internal___type"
-  | "pluginCreator___children"
-  | "pluginCreator___children___id"
-  | "pluginCreator___children___parent___id"
-  | "pluginCreator___children___parent___children"
-  | "pluginCreator___children___children"
-  | "pluginCreator___children___children___id"
-  | "pluginCreator___children___children___children"
-  | "pluginCreator___children___internal___content"
-  | "pluginCreator___children___internal___contentDigest"
-  | "pluginCreator___children___internal___description"
-  | "pluginCreator___children___internal___fieldOwners"
-  | "pluginCreator___children___internal___ignoreType"
-  | "pluginCreator___children___internal___mediaType"
-  | "pluginCreator___children___internal___owner"
-  | "pluginCreator___children___internal___type"
-  | "pluginCreator___internal___content"
-  | "pluginCreator___internal___contentDigest"
-  | "pluginCreator___internal___description"
-  | "pluginCreator___internal___fieldOwners"
-  | "pluginCreator___internal___ignoreType"
-  | "pluginCreator___internal___mediaType"
-  | "pluginCreator___internal___owner"
-  | "pluginCreator___internal___type"
-  | "pluginCreator___resolve"
-  | "pluginCreator___name"
-  | "pluginCreator___version"
-  | "pluginCreator___pluginOptions___plugins"
-  | "pluginCreator___pluginOptions___plugins___resolve"
-  | "pluginCreator___pluginOptions___plugins___id"
-  | "pluginCreator___pluginOptions___plugins___name"
-  | "pluginCreator___pluginOptions___plugins___version"
-  | "pluginCreator___pluginOptions___plugins___browserAPIs"
-  | "pluginCreator___pluginOptions___plugins___pluginFilepath"
-  | "pluginCreator___pluginOptions___fileName"
-  | "pluginCreator___pluginOptions___name"
-  | "pluginCreator___pluginOptions___path"
-  | "pluginCreator___pluginOptions___maxWidth"
-  | "pluginCreator___pluginOptions___terminal"
-  | "pluginCreator___pluginOptions___theme"
-  | "pluginCreator___pluginOptions___short_name"
-  | "pluginCreator___pluginOptions___start_url"
-  | "pluginCreator___pluginOptions___background_color"
-  | "pluginCreator___pluginOptions___theme_color"
-  | "pluginCreator___pluginOptions___display"
-  | "pluginCreator___pluginOptions___icon"
-  | "pluginCreator___pluginOptions___cache_busting_mode"
-  | "pluginCreator___pluginOptions___include_favicon"
-  | "pluginCreator___pluginOptions___legacy"
-  | "pluginCreator___pluginOptions___theme_color_in_head"
-  | "pluginCreator___pluginOptions___cacheDigest"
-  | "pluginCreator___pluginOptions___pathCheck"
-  | "pluginCreator___nodeAPIs"
-  | "pluginCreator___browserAPIs"
-  | "pluginCreator___ssrAPIs"
-  | "pluginCreator___pluginFilepath"
-  | "pluginCreator___packageJson___name"
-  | "pluginCreator___packageJson___description"
-  | "pluginCreator___packageJson___version"
-  | "pluginCreator___packageJson___main"
-  | "pluginCreator___packageJson___author"
-  | "pluginCreator___packageJson___license"
-  | "pluginCreator___packageJson___dependencies"
-  | "pluginCreator___packageJson___dependencies___name"
-  | "pluginCreator___packageJson___dependencies___version"
-  | "pluginCreator___packageJson___devDependencies"
-  | "pluginCreator___packageJson___devDependencies___name"
-  | "pluginCreator___packageJson___devDependencies___version"
-  | "pluginCreator___packageJson___peerDependencies"
-  | "pluginCreator___packageJson___peerDependencies___name"
-  | "pluginCreator___packageJson___peerDependencies___version"
-  | "pluginCreator___packageJson___keywords"
-  | "pluginCreatorId"
-  | "componentPath"
 
 export type SitePageFilterInput = {
   path?: Maybe<StringQueryOperatorInput>
@@ -2498,15 +2506,15 @@ export type SitePageFilterInput = {
   internalComponentName?: Maybe<StringQueryOperatorInput>
   componentChunkName?: Maybe<StringQueryOperatorInput>
   matchPath?: Maybe<StringQueryOperatorInput>
-  id?: Maybe<StringQueryOperatorInput>
-  parent?: Maybe<NodeFilterInput>
-  children?: Maybe<NodeFilterListInput>
-  internal?: Maybe<InternalFilterInput>
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>
   context?: Maybe<SitePageContextFilterInput>
   pluginCreator?: Maybe<SitePluginFilterInput>
   pluginCreatorId?: Maybe<StringQueryOperatorInput>
   componentPath?: Maybe<StringQueryOperatorInput>
+  id?: Maybe<StringQueryOperatorInput>
+  parent?: Maybe<NodeFilterInput>
+  children?: Maybe<NodeFilterListInput>
+  internal?: Maybe<InternalFilterInput>
 }
 
 export type SitePageGroupConnection = {
@@ -2660,16 +2668,22 @@ export type SitePluginFieldsEnum =
   | "pluginOptions___plugins___name"
   | "pluginOptions___plugins___version"
   | "pluginOptions___plugins___pluginOptions___maxWidth"
-  | "pluginOptions___plugins___pluginOptions___terminal"
-  | "pluginOptions___plugins___pluginOptions___theme"
+  | "pluginOptions___plugins___pluginOptions___classPrefix"
+  | "pluginOptions___plugins___pluginOptions___showLineNumbers"
+  | "pluginOptions___plugins___pluginOptions___noInlineHighlight"
   | "pluginOptions___plugins___browserAPIs"
   | "pluginOptions___plugins___pluginFilepath"
   | "pluginOptions___fileName"
   | "pluginOptions___name"
   | "pluginOptions___path"
   | "pluginOptions___maxWidth"
-  | "pluginOptions___terminal"
-  | "pluginOptions___theme"
+  | "pluginOptions___classPrefix"
+  | "pluginOptions___aliases___sh"
+  | "pluginOptions___showLineNumbers"
+  | "pluginOptions___noInlineHighlight"
+  | "pluginOptions___prompt___user"
+  | "pluginOptions___prompt___host"
+  | "pluginOptions___prompt___global"
   | "pluginOptions___short_name"
   | "pluginOptions___start_url"
   | "pluginOptions___background_color"
@@ -2690,7 +2704,6 @@ export type SitePluginFieldsEnum =
   | "packageJson___description"
   | "packageJson___version"
   | "packageJson___main"
-  | "packageJson___author"
   | "packageJson___license"
   | "packageJson___dependencies"
   | "packageJson___dependencies___name"
@@ -2733,7 +2746,6 @@ export type SitePluginPackageJson = {
   description?: Maybe<Scalars["String"]>
   version?: Maybe<Scalars["String"]>
   main?: Maybe<Scalars["String"]>
-  author?: Maybe<Scalars["String"]>
   license?: Maybe<Scalars["String"]>
   dependencies?: Maybe<Array<Maybe<SitePluginPackageJsonDependencies>>>
   devDependencies?: Maybe<Array<Maybe<SitePluginPackageJsonDevDependencies>>>
@@ -2774,7 +2786,6 @@ export type SitePluginPackageJsonFilterInput = {
   description?: Maybe<StringQueryOperatorInput>
   version?: Maybe<StringQueryOperatorInput>
   main?: Maybe<StringQueryOperatorInput>
-  author?: Maybe<StringQueryOperatorInput>
   license?: Maybe<StringQueryOperatorInput>
   dependencies?: Maybe<SitePluginPackageJsonDependenciesFilterListInput>
   devDependencies?: Maybe<SitePluginPackageJsonDevDependenciesFilterListInput>
@@ -2802,8 +2813,11 @@ export type SitePluginPluginOptions = {
   name?: Maybe<Scalars["String"]>
   path?: Maybe<Scalars["String"]>
   maxWidth?: Maybe<Scalars["Int"]>
-  terminal?: Maybe<Scalars["String"]>
-  theme?: Maybe<Scalars["String"]>
+  classPrefix?: Maybe<Scalars["String"]>
+  aliases?: Maybe<SitePluginPluginOptionsAliases>
+  showLineNumbers?: Maybe<Scalars["Boolean"]>
+  noInlineHighlight?: Maybe<Scalars["Boolean"]>
+  prompt?: Maybe<SitePluginPluginOptionsPrompt>
   short_name?: Maybe<Scalars["String"]>
   start_url?: Maybe<Scalars["String"]>
   background_color?: Maybe<Scalars["String"]>
@@ -2818,14 +2832,25 @@ export type SitePluginPluginOptions = {
   pathCheck?: Maybe<Scalars["Boolean"]>
 }
 
+export type SitePluginPluginOptionsAliases = {
+  sh?: Maybe<Scalars["String"]>
+}
+
+export type SitePluginPluginOptionsAliasesFilterInput = {
+  sh?: Maybe<StringQueryOperatorInput>
+}
+
 export type SitePluginPluginOptionsFilterInput = {
   plugins?: Maybe<SitePluginPluginOptionsPluginsFilterListInput>
   fileName?: Maybe<StringQueryOperatorInput>
   name?: Maybe<StringQueryOperatorInput>
   path?: Maybe<StringQueryOperatorInput>
   maxWidth?: Maybe<IntQueryOperatorInput>
-  terminal?: Maybe<StringQueryOperatorInput>
-  theme?: Maybe<StringQueryOperatorInput>
+  classPrefix?: Maybe<StringQueryOperatorInput>
+  aliases?: Maybe<SitePluginPluginOptionsAliasesFilterInput>
+  showLineNumbers?: Maybe<BooleanQueryOperatorInput>
+  noInlineHighlight?: Maybe<BooleanQueryOperatorInput>
+  prompt?: Maybe<SitePluginPluginOptionsPromptFilterInput>
   short_name?: Maybe<StringQueryOperatorInput>
   start_url?: Maybe<StringQueryOperatorInput>
   background_color?: Maybe<StringQueryOperatorInput>
@@ -2866,14 +2891,52 @@ export type SitePluginPluginOptionsPluginsFilterListInput = {
 
 export type SitePluginPluginOptionsPluginsPluginOptions = {
   maxWidth?: Maybe<Scalars["Int"]>
-  terminal?: Maybe<Scalars["String"]>
-  theme?: Maybe<Scalars["String"]>
+  classPrefix?: Maybe<Scalars["String"]>
+  aliases?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsAliases>
+  showLineNumbers?: Maybe<Scalars["Boolean"]>
+  noInlineHighlight?: Maybe<Scalars["Boolean"]>
+  prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPrompt>
+}
+
+export type SitePluginPluginOptionsPluginsPluginOptionsAliases = {
+  sh?: Maybe<Scalars["String"]>
+}
+
+export type SitePluginPluginOptionsPluginsPluginOptionsAliasesFilterInput = {
+  sh?: Maybe<StringQueryOperatorInput>
 }
 
 export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   maxWidth?: Maybe<IntQueryOperatorInput>
-  terminal?: Maybe<StringQueryOperatorInput>
-  theme?: Maybe<StringQueryOperatorInput>
+  classPrefix?: Maybe<StringQueryOperatorInput>
+  aliases?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsAliasesFilterInput>
+  showLineNumbers?: Maybe<BooleanQueryOperatorInput>
+  noInlineHighlight?: Maybe<BooleanQueryOperatorInput>
+  prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPromptFilterInput>
+}
+
+export type SitePluginPluginOptionsPluginsPluginOptionsPrompt = {
+  user?: Maybe<Scalars["String"]>
+  host?: Maybe<Scalars["String"]>
+  global?: Maybe<Scalars["Boolean"]>
+}
+
+export type SitePluginPluginOptionsPluginsPluginOptionsPromptFilterInput = {
+  user?: Maybe<StringQueryOperatorInput>
+  host?: Maybe<StringQueryOperatorInput>
+  global?: Maybe<BooleanQueryOperatorInput>
+}
+
+export type SitePluginPluginOptionsPrompt = {
+  user?: Maybe<Scalars["String"]>
+  host?: Maybe<Scalars["String"]>
+  global?: Maybe<Scalars["Boolean"]>
+}
+
+export type SitePluginPluginOptionsPromptFilterInput = {
+  user?: Maybe<StringQueryOperatorInput>
+  host?: Maybe<StringQueryOperatorInput>
+  global?: Maybe<BooleanQueryOperatorInput>
 }
 
 export type SitePluginSortInput = {
