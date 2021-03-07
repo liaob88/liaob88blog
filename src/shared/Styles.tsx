@@ -107,7 +107,7 @@ export const GlobalStyle = createGlobalStyle`
   pre,
   samp {
     font-family: monospace, monospace;
-    font-size: 1em;
+    font-size: 0.8rem;
   }
   figure {
     margin: 1em 40px;

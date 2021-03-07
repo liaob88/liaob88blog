@@ -24,7 +24,7 @@ tags: [shell]
 
 h2 タグも毎回書くだろうしと思い適当に追加しています。
 
-```shell
+```bash
 # Article info
 echo 'Type new article title'
 read TITLE
@@ -73,7 +73,7 @@ echo 'Done! File created!'
 tag は 1 記事につき複数個渡される可能性が高いと思い、コマンドライン変数に渡された任意の数の変数から構成される配列が作りたかったです。
 しかし、最初に書いたコードは
 
-```shell
+```bash
 echo 'Type new article tags'
 read TAGS
 declare TAGS_ARRAY=($TAGS)
