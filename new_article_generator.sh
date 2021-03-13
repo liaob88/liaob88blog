@@ -12,13 +12,13 @@ NOW=`date "+%Y-%m-%d %H:%M"`
 
 # Generate new md file with writing the article info on the file
 echo 'In Progress...'
-cat <<EOF > "src/blogs/${SLUG}.md"
+cat <<EOF > "data/blogs/${SLUG}.md"
 ---
 title: $TITLE
 description: $DESCRIPTION
 date: $NOW
 slug: $SLUG
-tags: [$TAGS]
+tags: [$TAGS] 
 ---
 ##
 ##
