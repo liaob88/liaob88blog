@@ -8,11 +8,29 @@
 import PropTypes from "prop-types"
 import React from "react"
 import { Helmet } from "react-helmet"
-import { useSiteMetadata } from "../hooks/useSiteMetaData"
+import { useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 
 function SEO({ description, lang, meta, title }) {
-  const { title: siteTitle, author } = useSiteMetadata()
+  const data = useStaticQuery(graphql`
+    {
+      siteMeta: site {
+        siteMetadata {
+          siteTitle: title
+          author
+        }
+      }
+      ogpImage: file(name: { eq: "liaob88blog" }) {
+        name
+        publicURL
+      }
+    }
+  `)
 
+  const { siteMeta, ogpImage } = data
+  const { siteTitle, author } = siteMeta.siteMetadata
+
+  const ogpImageUrl = `https://liaob88blog.netlify.app${ogpImage.publicURL}`
   const metaDescription = description
 
   return (
@@ -41,11 +59,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: author,
+          content: `summary_large_image`,
         },
         {
           name: `twitter:title`,
@@ -54,6 +68,14 @@ function SEO({ description, lang, meta, title }) {
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          name: `twitter:image`,
+          content: ogpImageUrl,
+        },
+        {
+          name: `twitter:site`,
+          content: `@${author}`,
         },
       ].concat(meta)}
     />
