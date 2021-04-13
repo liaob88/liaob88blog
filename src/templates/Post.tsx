@@ -20,17 +20,25 @@ export const query = graphql`
         tags
         date
       }
+      fields {
+        latestModifiedAt
+      }
     }
   }
 `
 
 const PostPage: React.FC<PostData> = ({ data, pageContext }) => {
   const { previous, next } = pageContext
-  const { frontmatter, html } = data.markdownRemark
+  const { frontmatter, html, fields } = data.markdownRemark
+
   return (
     <Layout>
       <SEO title={frontmatter.title} />
-      <ArticleContent html={html} post={frontmatter} />
+      <ArticleContent
+        html={html}
+        post={frontmatter}
+        modifiedAt={fields.latestModifiedAt}
+      />
       <PostPagePagination previous={previous} next={next} />
     </Layout>
   )

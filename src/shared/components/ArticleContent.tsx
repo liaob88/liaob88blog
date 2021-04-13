@@ -12,12 +12,18 @@ import Tags from "./Tags"
 interface Props {
   html: MarkdownRemark["html"]
   post: Pick<MarkdownRemarkFrontmatter, "title" | "tags" | "date">
+  modifiedAt: string
 }
 
-const ArticleContent: React.FC<Props> = ({ html, post }) => {
+const ArticleContent: React.FC<Props> = ({ html, post, modifiedAt }) => {
+  const createdAt = moment(post.date).format(`MM.DD.YYYY`)
+  const latestModifiedAt = moment(modifiedAt).format(`MM.DD.YYYY`)
   return (
     <PostPageWrapper>
-      <time>作成日: {moment(post.date).format(`MM.DD.YYYY`)}</time>
+      <time>作成日: {createdAt}</time>
+      {latestModifiedAt > createdAt && (
+        <time>最終更新日: {moment(modifiedAt).format(`MM.DD.YYYY`)}</time>
+      )}
       <h1>{post.title}</h1>
       <TagsWrapper $bottomSpace={true}>
         <Tags tags={post.tags} />
