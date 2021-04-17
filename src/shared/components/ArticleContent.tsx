@@ -1,5 +1,4 @@
 // syntax highlight
-import moment from "moment"
 import React from "react"
 import styled from "styled-components"
 import {
@@ -8,25 +7,40 @@ import {
 } from "../../../gatsby-graphql"
 import { TagsWrapper } from "../Styles"
 import Tags from "./Tags"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 interface Props {
   html: MarkdownRemark["html"]
-  post: Pick<MarkdownRemarkFrontmatter, "title" | "tags" | "date">
-  modifiedAt: string
+  title: MarkdownRemarkFrontmatter["title"]
+  tags: MarkdownRemarkFrontmatter["tags"]
+  createdAt: string
+  latestModifiedAt: string | null
 }
 
-const ArticleContent: React.FC<Props> = ({ html, post, modifiedAt }) => {
-  const createdAt = moment(post.date).format(`MM.DD.YYYY`)
-  const latestModifiedAt = moment(modifiedAt).format(`MM.DD.YYYY`)
+const ArticleContent: React.FC<Props> = ({
+  html,
+  title,
+  tags,
+  createdAt,
+  latestModifiedAt,
+}) => {
   return (
     <PostPageWrapper>
-      <time>作成日: {createdAt}</time>
-      {latestModifiedAt > createdAt && (
-        <time>最終更新日: {moment(modifiedAt).format(`MM.DD.YYYY`)}</time>
-      )}
-      <h1>{post.title}</h1>
+      <DateArea>
+        <DateParagraph>
+          <FontAwesomeIcon icon={"pencil-alt"} />
+          <time>{createdAt}</time>
+        </DateParagraph>
+        {latestModifiedAt && latestModifiedAt > createdAt && (
+          <DateParagraph>
+            <FontAwesomeIcon icon={"redo-alt"} />
+            <time>{latestModifiedAt}</time>
+          </DateParagraph>
+        )}
+      </DateArea>
+      <h1>{title}</h1>
       <TagsWrapper $bottomSpace={true}>
-        <Tags tags={post.tags} />
+        <Tags tags={tags} />
       </TagsWrapper>
       <MarkdownContent dangerouslySetInnerHTML={{ __html: html }} />
     </PostPageWrapper>
@@ -40,10 +54,14 @@ const PostPageWrapper = styled.div`
   }
   padding: 0 1rem;
   margin-bottom: 5rem;
+`
+
+const DateArea = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 0.7rem;
   time {
-    display: block;
-    text-align: end;
-    margin-bottom: 1rem;
+    margin-left: 5px;
   }
 `
 
@@ -59,6 +77,10 @@ const MarkdownContent = styled.div`
   a {
     color: inherit;
   }
+`
+
+const DateParagraph = styled.p`
+  margin: 0 10px 0;
 `
 
 export default ArticleContent

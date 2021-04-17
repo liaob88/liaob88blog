@@ -5,6 +5,7 @@ import ArticleContent from "../shared/components/ArticleContent"
 import Layout from "../shared/components/Layout"
 import { PostPagePagination } from "../shared/components/Pagination/PostPagePagination"
 import SEO from "../shared/components/seo"
+import moment from "moment"
 
 type PostData = {
   data: PostPageDataQuery
@@ -31,13 +32,22 @@ const PostPage: React.FC<PostData> = ({ data, pageContext }) => {
   const { previous, next } = pageContext
   const { frontmatter, html, fields } = data.markdownRemark
 
+  const { title, tags } = frontmatter
+
+  const createdAt = moment(frontmatter.date).format(`MM.DD.YYYY`)
+  const latestModifiedAt = fields.latestModifiedAt
+    ? moment(fields.latestModifiedAt).format(`MM.DD.YYYY`)
+    : null
+
   return (
     <Layout>
       <SEO title={frontmatter.title} />
       <ArticleContent
         html={html}
-        post={frontmatter}
-        modifiedAt={fields.latestModifiedAt}
+        title={title}
+        tags={tags}
+        createdAt={createdAt}
+        latestModifiedAt={latestModifiedAt}
       />
       <PostPagePagination previous={previous} next={next} />
     </Layout>
