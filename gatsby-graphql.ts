@@ -2,10 +2,6 @@ export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
 }
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> }
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -671,14 +667,15 @@ export type FileFieldsEnum =
   | "internal___type"
   | "childMarkdownRemark___id"
   | "childMarkdownRemark___frontmatter___title"
-  | "childMarkdownRemark___frontmatter___description"
   | "childMarkdownRemark___frontmatter___date"
-  | "childMarkdownRemark___frontmatter___slug"
   | "childMarkdownRemark___frontmatter___tags"
+  | "childMarkdownRemark___frontmatter___description"
+  | "childMarkdownRemark___frontmatter___slug"
   | "childMarkdownRemark___frontmatter___layout"
   | "childMarkdownRemark___excerpt"
   | "childMarkdownRemark___rawMarkdownBody"
   | "childMarkdownRemark___fileAbsolutePath"
+  | "childMarkdownRemark___fields___latestModifiedAt"
   | "childMarkdownRemark___html"
   | "childMarkdownRemark___htmlAst"
   | "childMarkdownRemark___excerptAst"
@@ -1346,6 +1343,7 @@ export type MarkdownRemark = Node & {
   excerpt?: Maybe<Scalars["String"]>
   rawMarkdownBody?: Maybe<Scalars["String"]>
   fileAbsolutePath?: Maybe<Scalars["String"]>
+  fields?: Maybe<MarkdownRemarkFields>
   html?: Maybe<Scalars["String"]>
   htmlAst?: Maybe<Scalars["JSON"]>
   excerptAst?: Maybe<Scalars["JSON"]>
@@ -1405,17 +1403,29 @@ export type MarkdownRemarkEdge = {
   previous?: Maybe<MarkdownRemark>
 }
 
+export type MarkdownRemarkFields = {
+  latestModifiedAt?: Maybe<Scalars["Date"]>
+}
+
+export type MarkdownRemarkFieldsLatestModifiedAtArgs = {
+  formatString?: Maybe<Scalars["String"]>
+  fromNow?: Maybe<Scalars["Boolean"]>
+  difference?: Maybe<Scalars["String"]>
+  locale?: Maybe<Scalars["String"]>
+}
+
 export type MarkdownRemarkFieldsEnum =
   | "id"
   | "frontmatter___title"
-  | "frontmatter___description"
   | "frontmatter___date"
-  | "frontmatter___slug"
   | "frontmatter___tags"
+  | "frontmatter___description"
+  | "frontmatter___slug"
   | "frontmatter___layout"
   | "excerpt"
   | "rawMarkdownBody"
   | "fileAbsolutePath"
+  | "fields___latestModifiedAt"
   | "html"
   | "htmlAst"
   | "excerptAst"
@@ -1514,12 +1524,17 @@ export type MarkdownRemarkFieldsEnum =
   | "internal___owner"
   | "internal___type"
 
+export type MarkdownRemarkFieldsFilterInput = {
+  latestModifiedAt?: Maybe<DateQueryOperatorInput>
+}
+
 export type MarkdownRemarkFilterInput = {
   id?: Maybe<StringQueryOperatorInput>
   frontmatter?: Maybe<MarkdownRemarkFrontmatterFilterInput>
   excerpt?: Maybe<StringQueryOperatorInput>
   rawMarkdownBody?: Maybe<StringQueryOperatorInput>
   fileAbsolutePath?: Maybe<StringQueryOperatorInput>
+  fields?: Maybe<MarkdownRemarkFieldsFilterInput>
   html?: Maybe<StringQueryOperatorInput>
   htmlAst?: Maybe<JsonQueryOperatorInput>
   excerptAst?: Maybe<JsonQueryOperatorInput>
@@ -1534,10 +1549,10 @@ export type MarkdownRemarkFilterInput = {
 
 export type MarkdownRemarkFrontmatter = {
   title?: Maybe<Scalars["String"]>
-  description?: Maybe<Scalars["String"]>
   date?: Maybe<Scalars["Date"]>
-  slug?: Maybe<Scalars["String"]>
   tags?: Maybe<Array<Maybe<Scalars["String"]>>>
+  description?: Maybe<Scalars["String"]>
+  slug?: Maybe<Scalars["String"]>
   layout?: Maybe<Scalars["String"]>
 }
 
@@ -1550,10 +1565,10 @@ export type MarkdownRemarkFrontmatterDateArgs = {
 
 export type MarkdownRemarkFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>
-  description?: Maybe<StringQueryOperatorInput>
   date?: Maybe<DateQueryOperatorInput>
-  slug?: Maybe<StringQueryOperatorInput>
   tags?: Maybe<StringQueryOperatorInput>
+  description?: Maybe<StringQueryOperatorInput>
+  slug?: Maybe<StringQueryOperatorInput>
   layout?: Maybe<StringQueryOperatorInput>
 }
 
@@ -1775,8 +1790,6 @@ export type QueryAllSitePageArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>
-  port?: Maybe<IntQueryOperatorInput>
-  host?: Maybe<StringQueryOperatorInput>
   polyfill?: Maybe<BooleanQueryOperatorInput>
   pathPrefix?: Maybe<StringQueryOperatorInput>
   id?: Maybe<StringQueryOperatorInput>
@@ -1798,6 +1811,7 @@ export type QueryMarkdownRemarkArgs = {
   excerpt?: Maybe<StringQueryOperatorInput>
   rawMarkdownBody?: Maybe<StringQueryOperatorInput>
   fileAbsolutePath?: Maybe<StringQueryOperatorInput>
+  fields?: Maybe<MarkdownRemarkFieldsFilterInput>
   html?: Maybe<StringQueryOperatorInput>
   htmlAst?: Maybe<JsonQueryOperatorInput>
   excerptAst?: Maybe<JsonQueryOperatorInput>
@@ -1878,8 +1892,6 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars["Date"]>
   siteMetadata?: Maybe<SiteSiteMetadata>
-  port?: Maybe<Scalars["Int"]>
-  host?: Maybe<Scalars["String"]>
   polyfill?: Maybe<Scalars["Boolean"]>
   pathPrefix?: Maybe<Scalars["String"]>
   id: Scalars["ID"]
@@ -2076,8 +2088,6 @@ export type SiteFieldsEnum =
   | "siteMetadata___title"
   | "siteMetadata___description"
   | "siteMetadata___author"
-  | "port"
-  | "host"
   | "polyfill"
   | "pathPrefix"
   | "id"
@@ -2170,8 +2180,6 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>
-  port?: Maybe<IntQueryOperatorInput>
-  host?: Maybe<StringQueryOperatorInput>
   polyfill?: Maybe<BooleanQueryOperatorInput>
   pathPrefix?: Maybe<StringQueryOperatorInput>
   id?: Maybe<StringQueryOperatorInput>
@@ -2486,6 +2494,7 @@ export type SitePageFieldsEnum =
   | "pluginCreator___packageJson___description"
   | "pluginCreator___packageJson___version"
   | "pluginCreator___packageJson___main"
+  | "pluginCreator___packageJson___author"
   | "pluginCreator___packageJson___license"
   | "pluginCreator___packageJson___dependencies"
   | "pluginCreator___packageJson___dependencies___name"
@@ -2704,6 +2713,7 @@ export type SitePluginFieldsEnum =
   | "packageJson___description"
   | "packageJson___version"
   | "packageJson___main"
+  | "packageJson___author"
   | "packageJson___license"
   | "packageJson___dependencies"
   | "packageJson___dependencies___name"
@@ -2746,6 +2756,7 @@ export type SitePluginPackageJson = {
   description?: Maybe<Scalars["String"]>
   version?: Maybe<Scalars["String"]>
   main?: Maybe<Scalars["String"]>
+  author?: Maybe<Scalars["String"]>
   license?: Maybe<Scalars["String"]>
   dependencies?: Maybe<Array<Maybe<SitePluginPackageJsonDependencies>>>
   devDependencies?: Maybe<Array<Maybe<SitePluginPackageJsonDevDependencies>>>
@@ -2786,6 +2797,7 @@ export type SitePluginPackageJsonFilterInput = {
   description?: Maybe<StringQueryOperatorInput>
   version?: Maybe<StringQueryOperatorInput>
   main?: Maybe<StringQueryOperatorInput>
+  author?: Maybe<StringQueryOperatorInput>
   license?: Maybe<StringQueryOperatorInput>
   dependencies?: Maybe<SitePluginPackageJsonDependenciesFilterListInput>
   devDependencies?: Maybe<SitePluginPackageJsonDevDependenciesFilterListInput>
@@ -2978,8 +2990,9 @@ export type AboutPageDataQuery = {
   markdownRemark?: Maybe<
     Pick<MarkdownRemark, "html"> & {
       frontmatter?: Maybe<
-        Pick<MarkdownRemarkFrontmatter, "title" | "date" | "tags">
+        Pick<MarkdownRemarkFrontmatter, "title" | "tags" | "date">
       >
+      fields?: Maybe<Pick<MarkdownRemarkFields, "latestModifiedAt">>
     }
   >
 }
@@ -3022,6 +3035,7 @@ export type PostPageDataQuery = {
       frontmatter?: Maybe<
         Pick<MarkdownRemarkFrontmatter, "title" | "tags" | "date">
       >
+      fields?: Maybe<Pick<MarkdownRemarkFields, "latestModifiedAt">>
     }
   >
 }

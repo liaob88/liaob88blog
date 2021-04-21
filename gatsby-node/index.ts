@@ -1,6 +1,7 @@
 import { GatsbyNode } from "gatsby"
 import * as path from "path"
 import { MarkdownRemarkFrontmatter } from "../gatsby-graphql"
+import { execSync } from "child_process"
 
 const query = `
   {
@@ -33,6 +34,9 @@ interface PostPageResult {
       node: {
         frontmatter: MarkdownRemarkFrontmatter
       }
+      fields: {
+        latestModifiedAt: string | null
+      }
     }[]
   }
   tagsGroup: {
@@ -40,6 +44,19 @@ interface PostPageResult {
       fieldValue: string[]
       totalCount: number
     }[]
+  }
+}
+
+export const onCreateNode: GatsbyNode["onCreateNode"] = ({ node, actions }) => {
+  if (node.internal.type === "MarkdownRemark") {
+    const latestModifiedAt = execSync(
+      `git log -1 --pretty=format:%aI ${node.fileAbsolutePath}`
+    ).toString()
+    actions.createNodeField({
+      node,
+      name: "latestModifiedAt",
+      value: latestModifiedAt,
+    })
   }
 }
 
