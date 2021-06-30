@@ -6,6 +6,16 @@ slug: my-first-oss-contribute
 tags: [oss, CircleCI]
 ---
 
+## 6/30 追記
+
+この記事で紹介した PR は author 側からのリアクションがなく、後にリポジトリ側で stale な PR とされ、 bot によって close されてしまった。
+
+内容を見た上での判断でなかったのが残念ではあるが、深追いはしないことにした。
+
+OSS コントリビュートというものについてだけでなく、こういうことあると知れて、総じて良い経験であったのは間違い無いので引き続き自分のできる貢献はしていきたいと思う。
+
+---
+
 今日初めて OSS コントリビュートした。
 
 issue: https://github.com/CircleCI-Public/aws-ecr-orb/issues/138
