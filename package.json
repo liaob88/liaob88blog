@@ -5,9 +5,9 @@
   "version": "0.1.0",
   "author": "",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "1.2.35",
-    "@fortawesome/free-solid-svg-icons": "5.15.3",
-    "@fortawesome/react-fontawesome": "0.1.14",
+    "@fortawesome/fontawesome-svg-core": "1.2.36",
+    "@fortawesome/free-solid-svg-icons": "5.15.4",
+    "@fortawesome/react-fontawesome": "0.1.15",
     "@types/styled-components": "5.1.13",
     "babel-plugin-styled-components": "1.13.2",
     "gatsby": "2.24.26",
