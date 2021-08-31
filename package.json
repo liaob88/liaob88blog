@@ -14,7 +14,7 @@
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-google-gtag": "^3.12.0",
     "gatsby-plugin-graphql-codegen": "2.7.3",
-    "gatsby-plugin-manifest": "2.4.21",
+    "gatsby-plugin-manifest": "^3.13.0",
     "gatsby-plugin-offline": "3.2.21",
     "gatsby-plugin-react-helmet": "3.3.10",
     "gatsby-plugin-sharp": "2.6.24",
