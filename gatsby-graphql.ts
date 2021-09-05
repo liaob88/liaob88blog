@@ -1,5 +1,11 @@
 export type Maybe<T> = T | null
-export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] }
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K]
+}
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> }
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   /** The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID. */
@@ -275,14 +281,14 @@ export type SitePage = Node & {
   internalComponentName: Scalars["String"]
   componentChunkName: Scalars["String"]
   matchPath?: Maybe<Scalars["String"]>
+  isCreatedByStatefulCreatePages?: Maybe<Scalars["Boolean"]>
+  pluginCreator?: Maybe<SitePlugin>
+  pluginCreatorId?: Maybe<Scalars["String"]>
   id: Scalars["ID"]
   parent?: Maybe<Node>
   children: Array<Node>
   internal: Internal
-  isCreatedByStatefulCreatePages?: Maybe<Scalars["Boolean"]>
   context?: Maybe<SitePageContext>
-  pluginCreator?: Maybe<SitePlugin>
-  pluginCreatorId?: Maybe<Scalars["String"]>
 }
 
 export type SitePageContext = {
@@ -378,11 +384,11 @@ export type MarkdownRemarkTableOfContentsArgs = {
 
 export type MarkdownRemarkFrontmatter = {
   title?: Maybe<Scalars["String"]>
-  date?: Maybe<Scalars["Date"]>
-  tags?: Maybe<Array<Maybe<Scalars["String"]>>>
-  description?: Maybe<Scalars["String"]>
-  slug?: Maybe<Scalars["String"]>
   layout?: Maybe<Scalars["String"]>
+  description?: Maybe<Scalars["String"]>
+  date?: Maybe<Scalars["Date"]>
+  slug?: Maybe<Scalars["String"]>
+  tags?: Maybe<Array<Maybe<Scalars["String"]>>>
 }
 
 export type MarkdownRemarkFrontmatterDateArgs = {
@@ -403,9 +409,11 @@ export type MarkdownRemarkFieldsLatestModifiedAtArgs = {
   locale?: Maybe<Scalars["String"]>
 }
 
-export type ImageFormat = "NO_CHANGE" | "JPG" | "PNG" | "WEBP"
+export type ImageFormat = "NO_CHANGE" | "AUTO" | "JPG" | "PNG" | "WEBP" | "AVIF"
 
 export type ImageFit = "COVER" | "CONTAIN" | "FILL" | "INSIDE" | "OUTSIDE"
+
+export type ImageLayout = "FIXED" | "FULL_WIDTH" | "CONSTRAINED"
 
 export type ImageCropFocus =
   | "CENTER"
@@ -448,11 +456,8 @@ export type Potrace = {
 
 export type ImageSharp = Node & {
   fixed?: Maybe<ImageSharpFixed>
-  /** @deprecated Resolutions was deprecated in Gatsby v2. It's been renamed to "fixed" https://example.com/write-docs-and-fix-this-example-link */
-  resolutions?: Maybe<ImageSharpResolutions>
   fluid?: Maybe<ImageSharpFluid>
-  /** @deprecated Sizes was deprecated in Gatsby v2. It's been renamed to "fluid" https://example.com/write-docs-and-fix-this-example-link */
-  sizes?: Maybe<ImageSharpSizes>
+  gatsbyImageData: Scalars["JSON"]
   original?: Maybe<ImageSharpOriginal>
   resize?: Maybe<ImageSharpResize>
   id: Scalars["ID"]
@@ -462,28 +467,6 @@ export type ImageSharp = Node & {
 }
 
 export type ImageSharpFixedArgs = {
-  width?: Maybe<Scalars["Int"]>
-  height?: Maybe<Scalars["Int"]>
-  base64Width?: Maybe<Scalars["Int"]>
-  jpegProgressive?: Maybe<Scalars["Boolean"]>
-  pngCompressionSpeed?: Maybe<Scalars["Int"]>
-  grayscale?: Maybe<Scalars["Boolean"]>
-  duotone?: Maybe<DuotoneGradient>
-  traceSVG?: Maybe<Potrace>
-  quality?: Maybe<Scalars["Int"]>
-  jpegQuality?: Maybe<Scalars["Int"]>
-  pngQuality?: Maybe<Scalars["Int"]>
-  webpQuality?: Maybe<Scalars["Int"]>
-  toFormat?: Maybe<ImageFormat>
-  toFormatBase64?: Maybe<ImageFormat>
-  cropFocus?: Maybe<ImageCropFocus>
-  fit?: Maybe<ImageFit>
-  background?: Maybe<Scalars["String"]>
-  rotate?: Maybe<Scalars["Int"]>
-  trim?: Maybe<Scalars["Float"]>
-}
-
-export type ImageSharpResolutionsArgs = {
   width?: Maybe<Scalars["Int"]>
   height?: Maybe<Scalars["Int"]>
   base64Width?: Maybe<Scalars["Int"]>
@@ -529,28 +512,25 @@ export type ImageSharpFluidArgs = {
   srcSetBreakpoints?: Maybe<Array<Maybe<Scalars["Int"]>>>
 }
 
-export type ImageSharpSizesArgs = {
-  maxWidth?: Maybe<Scalars["Int"]>
-  maxHeight?: Maybe<Scalars["Int"]>
-  base64Width?: Maybe<Scalars["Int"]>
-  grayscale?: Maybe<Scalars["Boolean"]>
-  jpegProgressive?: Maybe<Scalars["Boolean"]>
-  pngCompressionSpeed?: Maybe<Scalars["Int"]>
-  duotone?: Maybe<DuotoneGradient>
-  traceSVG?: Maybe<Potrace>
-  quality?: Maybe<Scalars["Int"]>
-  jpegQuality?: Maybe<Scalars["Int"]>
-  pngQuality?: Maybe<Scalars["Int"]>
-  webpQuality?: Maybe<Scalars["Int"]>
-  toFormat?: Maybe<ImageFormat>
-  toFormatBase64?: Maybe<ImageFormat>
-  cropFocus?: Maybe<ImageCropFocus>
-  fit?: Maybe<ImageFit>
-  background?: Maybe<Scalars["String"]>
-  rotate?: Maybe<Scalars["Int"]>
-  trim?: Maybe<Scalars["Float"]>
+export type ImageSharpGatsbyImageDataArgs = {
+  layout?: Maybe<ImageLayout>
+  width?: Maybe<Scalars["Int"]>
+  height?: Maybe<Scalars["Int"]>
+  aspectRatio?: Maybe<Scalars["Float"]>
+  placeholder?: Maybe<ImagePlaceholder>
+  blurredOptions?: Maybe<BlurredOptions>
+  tracedSVGOptions?: Maybe<Potrace>
+  formats?: Maybe<Array<Maybe<ImageFormat>>>
+  outputPixelDensities?: Maybe<Array<Maybe<Scalars["Float"]>>>
+  breakpoints?: Maybe<Array<Maybe<Scalars["Int"]>>>
   sizes?: Maybe<Scalars["String"]>
-  srcSetBreakpoints?: Maybe<Array<Maybe<Scalars["Int"]>>>
+  quality?: Maybe<Scalars["Int"]>
+  jpgOptions?: Maybe<JpgOptions>
+  pngOptions?: Maybe<PngOptions>
+  webpOptions?: Maybe<WebPOptions>
+  avifOptions?: Maybe<AvifOptions>
+  transformOptions?: Maybe<TransformOptions>
+  backgroundColor?: Maybe<Scalars["String"]>
 }
 
 export type ImageSharpResizeArgs = {
@@ -588,19 +568,6 @@ export type ImageSharpFixed = {
   originalName?: Maybe<Scalars["String"]>
 }
 
-export type ImageSharpResolutions = {
-  base64?: Maybe<Scalars["String"]>
-  tracedSVG?: Maybe<Scalars["String"]>
-  aspectRatio?: Maybe<Scalars["Float"]>
-  width: Scalars["Float"]
-  height: Scalars["Float"]
-  src: Scalars["String"]
-  srcSet: Scalars["String"]
-  srcWebp?: Maybe<Scalars["String"]>
-  srcSetWebp?: Maybe<Scalars["String"]>
-  originalName?: Maybe<Scalars["String"]>
-}
-
 export type ImageSharpFluid = {
   base64?: Maybe<Scalars["String"]>
   tracedSVG?: Maybe<Scalars["String"]>
@@ -616,19 +583,46 @@ export type ImageSharpFluid = {
   presentationHeight: Scalars["Int"]
 }
 
-export type ImageSharpSizes = {
-  base64?: Maybe<Scalars["String"]>
-  tracedSVG?: Maybe<Scalars["String"]>
-  aspectRatio: Scalars["Float"]
-  src: Scalars["String"]
-  srcSet: Scalars["String"]
-  srcWebp?: Maybe<Scalars["String"]>
-  srcSetWebp?: Maybe<Scalars["String"]>
-  sizes: Scalars["String"]
-  originalImg?: Maybe<Scalars["String"]>
-  originalName?: Maybe<Scalars["String"]>
-  presentationWidth: Scalars["Int"]
-  presentationHeight: Scalars["Int"]
+export type ImagePlaceholder =
+  | "DOMINANT_COLOR"
+  | "TRACED_SVG"
+  | "BLURRED"
+  | "NONE"
+
+export type BlurredOptions = {
+  /** Width of the generated low-res preview. Default is 20px */
+  width?: Maybe<Scalars["Int"]>
+  /** Force the output format for the low-res preview. Default is to use the same format as the input. You should rarely need to change this */
+  toFormat?: Maybe<ImageFormat>
+}
+
+export type JpgOptions = {
+  quality?: Maybe<Scalars["Int"]>
+  progressive?: Maybe<Scalars["Boolean"]>
+}
+
+export type PngOptions = {
+  quality?: Maybe<Scalars["Int"]>
+  compressionSpeed?: Maybe<Scalars["Int"]>
+}
+
+export type WebPOptions = {
+  quality?: Maybe<Scalars["Int"]>
+}
+
+export type AvifOptions = {
+  quality?: Maybe<Scalars["Int"]>
+  lossless?: Maybe<Scalars["Boolean"]>
+  speed?: Maybe<Scalars["Int"]>
+}
+
+export type TransformOptions = {
+  grayscale?: Maybe<Scalars["Boolean"]>
+  duotone?: Maybe<DuotoneGradient>
+  rotate?: Maybe<Scalars["Int"]>
+  trim?: Maybe<Scalars["Float"]>
+  cropFocus?: Maybe<ImageCropFocus>
+  fit?: Maybe<ImageFit>
 }
 
 export type ImageSharpOriginal = {
@@ -667,21 +661,38 @@ export type SitePluginPluginOptions = {
   name?: Maybe<Scalars["String"]>
   path?: Maybe<Scalars["String"]>
   maxWidth?: Maybe<Scalars["Int"]>
+  linkImagesToOriginal?: Maybe<Scalars["Boolean"]>
+  showCaptions?: Maybe<Scalars["Boolean"]>
+  markdownCaptions?: Maybe<Scalars["Boolean"]>
+  sizeByPixelDensity?: Maybe<Scalars["Boolean"]>
+  backgroundColor?: Maybe<Scalars["String"]>
+  quality?: Maybe<Scalars["Int"]>
+  withWebp?: Maybe<Scalars["Boolean"]>
+  tracedSVG?: Maybe<Scalars["Boolean"]>
+  loading?: Maybe<Scalars["String"]>
+  decoding?: Maybe<Scalars["String"]>
+  disableBgImageOnAlpha?: Maybe<Scalars["Boolean"]>
+  disableBgImage?: Maybe<Scalars["Boolean"]>
   classPrefix?: Maybe<Scalars["String"]>
   aliases?: Maybe<SitePluginPluginOptionsAliases>
   showLineNumbers?: Maybe<Scalars["Boolean"]>
   noInlineHighlight?: Maybe<Scalars["Boolean"]>
   prompt?: Maybe<SitePluginPluginOptionsPrompt>
+  base64Width?: Maybe<Scalars["Int"]>
+  stripMetadata?: Maybe<Scalars["Boolean"]>
+  defaultQuality?: Maybe<Scalars["Int"]>
+  failOnError?: Maybe<Scalars["Boolean"]>
   short_name?: Maybe<Scalars["String"]>
   start_url?: Maybe<Scalars["String"]>
   background_color?: Maybe<Scalars["String"]>
   theme_color?: Maybe<Scalars["String"]>
   display?: Maybe<Scalars["String"]>
   icon?: Maybe<Scalars["String"]>
-  cache_busting_mode?: Maybe<Scalars["String"]>
-  include_favicon?: Maybe<Scalars["Boolean"]>
   legacy?: Maybe<Scalars["Boolean"]>
   theme_color_in_head?: Maybe<Scalars["Boolean"]>
+  cache_busting_mode?: Maybe<Scalars["String"]>
+  crossOrigin?: Maybe<Scalars["String"]>
+  include_favicon?: Maybe<Scalars["Boolean"]>
   cacheDigest?: Maybe<Scalars["String"]>
   displayName?: Maybe<Scalars["Boolean"]>
   minify?: Maybe<Scalars["Boolean"]>
@@ -707,6 +718,18 @@ export type SitePluginPluginOptionsPlugins = {
 
 export type SitePluginPluginOptionsPluginsPluginOptions = {
   maxWidth?: Maybe<Scalars["Int"]>
+  linkImagesToOriginal?: Maybe<Scalars["Boolean"]>
+  showCaptions?: Maybe<Scalars["Boolean"]>
+  markdownCaptions?: Maybe<Scalars["Boolean"]>
+  sizeByPixelDensity?: Maybe<Scalars["Boolean"]>
+  backgroundColor?: Maybe<Scalars["String"]>
+  quality?: Maybe<Scalars["Int"]>
+  withWebp?: Maybe<Scalars["Boolean"]>
+  tracedSVG?: Maybe<Scalars["Boolean"]>
+  loading?: Maybe<Scalars["String"]>
+  decoding?: Maybe<Scalars["String"]>
+  disableBgImageOnAlpha?: Maybe<Scalars["Boolean"]>
+  disableBgImage?: Maybe<Scalars["Boolean"]>
   classPrefix?: Maybe<Scalars["String"]>
   aliases?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsAliases>
   showLineNumbers?: Maybe<Scalars["Boolean"]>
@@ -944,14 +967,14 @@ export type QuerySitePageArgs = {
   internalComponentName?: Maybe<StringQueryOperatorInput>
   componentChunkName?: Maybe<StringQueryOperatorInput>
   matchPath?: Maybe<StringQueryOperatorInput>
+  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>
+  pluginCreator?: Maybe<SitePluginFilterInput>
+  pluginCreatorId?: Maybe<StringQueryOperatorInput>
   id?: Maybe<StringQueryOperatorInput>
   parent?: Maybe<NodeFilterInput>
   children?: Maybe<NodeFilterListInput>
   internal?: Maybe<InternalFilterInput>
-  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>
   context?: Maybe<SitePageContextFilterInput>
-  pluginCreator?: Maybe<SitePluginFilterInput>
-  pluginCreatorId?: Maybe<StringQueryOperatorInput>
 }
 
 export type QueryAllSitePageArgs = {
@@ -989,9 +1012,8 @@ export type QueryAllMarkdownRemarkArgs = {
 
 export type QueryImageSharpArgs = {
   fixed?: Maybe<ImageSharpFixedFilterInput>
-  resolutions?: Maybe<ImageSharpResolutionsFilterInput>
   fluid?: Maybe<ImageSharpFluidFilterInput>
-  sizes?: Maybe<ImageSharpSizesFilterInput>
+  gatsbyImageData?: Maybe<JsonQueryOperatorInput>
   original?: Maybe<ImageSharpOriginalFilterInput>
   resize?: Maybe<ImageSharpResizeFilterInput>
   id?: Maybe<StringQueryOperatorInput>
@@ -1112,11 +1134,11 @@ export type MarkdownRemarkFilterInput = {
 
 export type MarkdownRemarkFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>
-  date?: Maybe<DateQueryOperatorInput>
-  tags?: Maybe<StringQueryOperatorInput>
-  description?: Maybe<StringQueryOperatorInput>
-  slug?: Maybe<StringQueryOperatorInput>
   layout?: Maybe<StringQueryOperatorInput>
+  description?: Maybe<StringQueryOperatorInput>
+  date?: Maybe<DateQueryOperatorInput>
+  slug?: Maybe<StringQueryOperatorInput>
+  tags?: Maybe<StringQueryOperatorInput>
 }
 
 export type MarkdownRemarkFieldsFilterInput = {
@@ -1183,9 +1205,8 @@ export type ImageSharpFilterListInput = {
 
 export type ImageSharpFilterInput = {
   fixed?: Maybe<ImageSharpFixedFilterInput>
-  resolutions?: Maybe<ImageSharpResolutionsFilterInput>
   fluid?: Maybe<ImageSharpFluidFilterInput>
-  sizes?: Maybe<ImageSharpSizesFilterInput>
+  gatsbyImageData?: Maybe<JsonQueryOperatorInput>
   original?: Maybe<ImageSharpOriginalFilterInput>
   resize?: Maybe<ImageSharpResizeFilterInput>
   id?: Maybe<StringQueryOperatorInput>
@@ -1207,35 +1228,7 @@ export type ImageSharpFixedFilterInput = {
   originalName?: Maybe<StringQueryOperatorInput>
 }
 
-export type ImageSharpResolutionsFilterInput = {
-  base64?: Maybe<StringQueryOperatorInput>
-  tracedSVG?: Maybe<StringQueryOperatorInput>
-  aspectRatio?: Maybe<FloatQueryOperatorInput>
-  width?: Maybe<FloatQueryOperatorInput>
-  height?: Maybe<FloatQueryOperatorInput>
-  src?: Maybe<StringQueryOperatorInput>
-  srcSet?: Maybe<StringQueryOperatorInput>
-  srcWebp?: Maybe<StringQueryOperatorInput>
-  srcSetWebp?: Maybe<StringQueryOperatorInput>
-  originalName?: Maybe<StringQueryOperatorInput>
-}
-
 export type ImageSharpFluidFilterInput = {
-  base64?: Maybe<StringQueryOperatorInput>
-  tracedSVG?: Maybe<StringQueryOperatorInput>
-  aspectRatio?: Maybe<FloatQueryOperatorInput>
-  src?: Maybe<StringQueryOperatorInput>
-  srcSet?: Maybe<StringQueryOperatorInput>
-  srcWebp?: Maybe<StringQueryOperatorInput>
-  srcSetWebp?: Maybe<StringQueryOperatorInput>
-  sizes?: Maybe<StringQueryOperatorInput>
-  originalImg?: Maybe<StringQueryOperatorInput>
-  originalName?: Maybe<StringQueryOperatorInput>
-  presentationWidth?: Maybe<IntQueryOperatorInput>
-  presentationHeight?: Maybe<IntQueryOperatorInput>
-}
-
-export type ImageSharpSizesFilterInput = {
   base64?: Maybe<StringQueryOperatorInput>
   tracedSVG?: Maybe<StringQueryOperatorInput>
   aspectRatio?: Maybe<FloatQueryOperatorInput>
@@ -1353,11 +1346,11 @@ export type FileFieldsEnum =
   | "childrenMarkdownRemark"
   | "childrenMarkdownRemark___id"
   | "childrenMarkdownRemark___frontmatter___title"
-  | "childrenMarkdownRemark___frontmatter___date"
-  | "childrenMarkdownRemark___frontmatter___tags"
-  | "childrenMarkdownRemark___frontmatter___description"
-  | "childrenMarkdownRemark___frontmatter___slug"
   | "childrenMarkdownRemark___frontmatter___layout"
+  | "childrenMarkdownRemark___frontmatter___description"
+  | "childrenMarkdownRemark___frontmatter___date"
+  | "childrenMarkdownRemark___frontmatter___slug"
+  | "childrenMarkdownRemark___frontmatter___tags"
   | "childrenMarkdownRemark___excerpt"
   | "childrenMarkdownRemark___rawMarkdownBody"
   | "childrenMarkdownRemark___fileAbsolutePath"
@@ -1413,11 +1406,11 @@ export type FileFieldsEnum =
   | "childrenMarkdownRemark___internal___type"
   | "childMarkdownRemark___id"
   | "childMarkdownRemark___frontmatter___title"
-  | "childMarkdownRemark___frontmatter___date"
-  | "childMarkdownRemark___frontmatter___tags"
-  | "childMarkdownRemark___frontmatter___description"
-  | "childMarkdownRemark___frontmatter___slug"
   | "childMarkdownRemark___frontmatter___layout"
+  | "childMarkdownRemark___frontmatter___description"
+  | "childMarkdownRemark___frontmatter___date"
+  | "childMarkdownRemark___frontmatter___slug"
+  | "childMarkdownRemark___frontmatter___tags"
   | "childMarkdownRemark___excerpt"
   | "childMarkdownRemark___rawMarkdownBody"
   | "childMarkdownRemark___fileAbsolutePath"
@@ -1482,16 +1475,6 @@ export type FileFieldsEnum =
   | "childrenImageSharp___fixed___srcWebp"
   | "childrenImageSharp___fixed___srcSetWebp"
   | "childrenImageSharp___fixed___originalName"
-  | "childrenImageSharp___resolutions___base64"
-  | "childrenImageSharp___resolutions___tracedSVG"
-  | "childrenImageSharp___resolutions___aspectRatio"
-  | "childrenImageSharp___resolutions___width"
-  | "childrenImageSharp___resolutions___height"
-  | "childrenImageSharp___resolutions___src"
-  | "childrenImageSharp___resolutions___srcSet"
-  | "childrenImageSharp___resolutions___srcWebp"
-  | "childrenImageSharp___resolutions___srcSetWebp"
-  | "childrenImageSharp___resolutions___originalName"
   | "childrenImageSharp___fluid___base64"
   | "childrenImageSharp___fluid___tracedSVG"
   | "childrenImageSharp___fluid___aspectRatio"
@@ -1504,18 +1487,7 @@ export type FileFieldsEnum =
   | "childrenImageSharp___fluid___originalName"
   | "childrenImageSharp___fluid___presentationWidth"
   | "childrenImageSharp___fluid___presentationHeight"
-  | "childrenImageSharp___sizes___base64"
-  | "childrenImageSharp___sizes___tracedSVG"
-  | "childrenImageSharp___sizes___aspectRatio"
-  | "childrenImageSharp___sizes___src"
-  | "childrenImageSharp___sizes___srcSet"
-  | "childrenImageSharp___sizes___srcWebp"
-  | "childrenImageSharp___sizes___srcSetWebp"
-  | "childrenImageSharp___sizes___sizes"
-  | "childrenImageSharp___sizes___originalImg"
-  | "childrenImageSharp___sizes___originalName"
-  | "childrenImageSharp___sizes___presentationWidth"
-  | "childrenImageSharp___sizes___presentationHeight"
+  | "childrenImageSharp___gatsbyImageData"
   | "childrenImageSharp___original___width"
   | "childrenImageSharp___original___height"
   | "childrenImageSharp___original___src"
@@ -1573,16 +1545,6 @@ export type FileFieldsEnum =
   | "childImageSharp___fixed___srcWebp"
   | "childImageSharp___fixed___srcSetWebp"
   | "childImageSharp___fixed___originalName"
-  | "childImageSharp___resolutions___base64"
-  | "childImageSharp___resolutions___tracedSVG"
-  | "childImageSharp___resolutions___aspectRatio"
-  | "childImageSharp___resolutions___width"
-  | "childImageSharp___resolutions___height"
-  | "childImageSharp___resolutions___src"
-  | "childImageSharp___resolutions___srcSet"
-  | "childImageSharp___resolutions___srcWebp"
-  | "childImageSharp___resolutions___srcSetWebp"
-  | "childImageSharp___resolutions___originalName"
   | "childImageSharp___fluid___base64"
   | "childImageSharp___fluid___tracedSVG"
   | "childImageSharp___fluid___aspectRatio"
@@ -1595,18 +1557,7 @@ export type FileFieldsEnum =
   | "childImageSharp___fluid___originalName"
   | "childImageSharp___fluid___presentationWidth"
   | "childImageSharp___fluid___presentationHeight"
-  | "childImageSharp___sizes___base64"
-  | "childImageSharp___sizes___tracedSVG"
-  | "childImageSharp___sizes___aspectRatio"
-  | "childImageSharp___sizes___src"
-  | "childImageSharp___sizes___srcSet"
-  | "childImageSharp___sizes___srcWebp"
-  | "childImageSharp___sizes___srcSetWebp"
-  | "childImageSharp___sizes___sizes"
-  | "childImageSharp___sizes___originalImg"
-  | "childImageSharp___sizes___originalName"
-  | "childImageSharp___sizes___presentationWidth"
-  | "childImageSharp___sizes___presentationHeight"
+  | "childImageSharp___gatsbyImageData"
   | "childImageSharp___original___width"
   | "childImageSharp___original___height"
   | "childImageSharp___original___src"
@@ -2349,40 +2300,6 @@ export type SiteFunctionSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>
 }
 
-export type SitePageContextFilterInput = {
-  slug?: Maybe<StringQueryOperatorInput>
-  title?: Maybe<StringQueryOperatorInput>
-  previous?: Maybe<SitePageContextPreviousFilterInput>
-  next?: Maybe<SitePageContextNextFilterInput>
-  limit?: Maybe<IntQueryOperatorInput>
-  skip?: Maybe<IntQueryOperatorInput>
-  numPages?: Maybe<IntQueryOperatorInput>
-  currentPage?: Maybe<IntQueryOperatorInput>
-  tag?: Maybe<StringQueryOperatorInput>
-  totalCount?: Maybe<IntQueryOperatorInput>
-  numTagPages?: Maybe<IntQueryOperatorInput>
-}
-
-export type SitePageContextPreviousFilterInput = {
-  frontmatter?: Maybe<SitePageContextPreviousFrontmatterFilterInput>
-}
-
-export type SitePageContextPreviousFrontmatterFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>
-  slug?: Maybe<StringQueryOperatorInput>
-  tags?: Maybe<StringQueryOperatorInput>
-}
-
-export type SitePageContextNextFilterInput = {
-  frontmatter?: Maybe<SitePageContextNextFrontmatterFilterInput>
-}
-
-export type SitePageContextNextFrontmatterFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>
-  slug?: Maybe<StringQueryOperatorInput>
-  tags?: Maybe<StringQueryOperatorInput>
-}
-
 export type SitePluginFilterInput = {
   id?: Maybe<StringQueryOperatorInput>
   parent?: Maybe<NodeFilterInput>
@@ -2404,21 +2321,38 @@ export type SitePluginPluginOptionsFilterInput = {
   name?: Maybe<StringQueryOperatorInput>
   path?: Maybe<StringQueryOperatorInput>
   maxWidth?: Maybe<IntQueryOperatorInput>
+  linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>
+  showCaptions?: Maybe<BooleanQueryOperatorInput>
+  markdownCaptions?: Maybe<BooleanQueryOperatorInput>
+  sizeByPixelDensity?: Maybe<BooleanQueryOperatorInput>
+  backgroundColor?: Maybe<StringQueryOperatorInput>
+  quality?: Maybe<IntQueryOperatorInput>
+  withWebp?: Maybe<BooleanQueryOperatorInput>
+  tracedSVG?: Maybe<BooleanQueryOperatorInput>
+  loading?: Maybe<StringQueryOperatorInput>
+  decoding?: Maybe<StringQueryOperatorInput>
+  disableBgImageOnAlpha?: Maybe<BooleanQueryOperatorInput>
+  disableBgImage?: Maybe<BooleanQueryOperatorInput>
   classPrefix?: Maybe<StringQueryOperatorInput>
   aliases?: Maybe<SitePluginPluginOptionsAliasesFilterInput>
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>
   noInlineHighlight?: Maybe<BooleanQueryOperatorInput>
   prompt?: Maybe<SitePluginPluginOptionsPromptFilterInput>
+  base64Width?: Maybe<IntQueryOperatorInput>
+  stripMetadata?: Maybe<BooleanQueryOperatorInput>
+  defaultQuality?: Maybe<IntQueryOperatorInput>
+  failOnError?: Maybe<BooleanQueryOperatorInput>
   short_name?: Maybe<StringQueryOperatorInput>
   start_url?: Maybe<StringQueryOperatorInput>
   background_color?: Maybe<StringQueryOperatorInput>
   theme_color?: Maybe<StringQueryOperatorInput>
   display?: Maybe<StringQueryOperatorInput>
   icon?: Maybe<StringQueryOperatorInput>
-  cache_busting_mode?: Maybe<StringQueryOperatorInput>
-  include_favicon?: Maybe<BooleanQueryOperatorInput>
   legacy?: Maybe<BooleanQueryOperatorInput>
   theme_color_in_head?: Maybe<BooleanQueryOperatorInput>
+  cache_busting_mode?: Maybe<StringQueryOperatorInput>
+  crossOrigin?: Maybe<StringQueryOperatorInput>
+  include_favicon?: Maybe<BooleanQueryOperatorInput>
   cacheDigest?: Maybe<StringQueryOperatorInput>
   displayName?: Maybe<BooleanQueryOperatorInput>
   minify?: Maybe<BooleanQueryOperatorInput>
@@ -2448,6 +2382,18 @@ export type SitePluginPluginOptionsPluginsFilterInput = {
 
 export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   maxWidth?: Maybe<IntQueryOperatorInput>
+  linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>
+  showCaptions?: Maybe<BooleanQueryOperatorInput>
+  markdownCaptions?: Maybe<BooleanQueryOperatorInput>
+  sizeByPixelDensity?: Maybe<BooleanQueryOperatorInput>
+  backgroundColor?: Maybe<StringQueryOperatorInput>
+  quality?: Maybe<IntQueryOperatorInput>
+  withWebp?: Maybe<BooleanQueryOperatorInput>
+  tracedSVG?: Maybe<BooleanQueryOperatorInput>
+  loading?: Maybe<StringQueryOperatorInput>
+  decoding?: Maybe<StringQueryOperatorInput>
+  disableBgImageOnAlpha?: Maybe<BooleanQueryOperatorInput>
+  disableBgImage?: Maybe<BooleanQueryOperatorInput>
   classPrefix?: Maybe<StringQueryOperatorInput>
   aliases?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsAliasesFilterInput>
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>
@@ -2515,6 +2461,40 @@ export type SitePluginPackageJsonPeerDependenciesFilterInput = {
   version?: Maybe<StringQueryOperatorInput>
 }
 
+export type SitePageContextFilterInput = {
+  slug?: Maybe<StringQueryOperatorInput>
+  title?: Maybe<StringQueryOperatorInput>
+  previous?: Maybe<SitePageContextPreviousFilterInput>
+  next?: Maybe<SitePageContextNextFilterInput>
+  limit?: Maybe<IntQueryOperatorInput>
+  skip?: Maybe<IntQueryOperatorInput>
+  numPages?: Maybe<IntQueryOperatorInput>
+  currentPage?: Maybe<IntQueryOperatorInput>
+  tag?: Maybe<StringQueryOperatorInput>
+  totalCount?: Maybe<IntQueryOperatorInput>
+  numTagPages?: Maybe<IntQueryOperatorInput>
+}
+
+export type SitePageContextPreviousFilterInput = {
+  frontmatter?: Maybe<SitePageContextPreviousFrontmatterFilterInput>
+}
+
+export type SitePageContextPreviousFrontmatterFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>
+  slug?: Maybe<StringQueryOperatorInput>
+  tags?: Maybe<StringQueryOperatorInput>
+}
+
+export type SitePageContextNextFilterInput = {
+  frontmatter?: Maybe<SitePageContextNextFrontmatterFilterInput>
+}
+
+export type SitePageContextNextFrontmatterFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>
+  slug?: Maybe<StringQueryOperatorInput>
+  tags?: Maybe<StringQueryOperatorInput>
+}
+
 export type SitePageConnection = {
   totalCount: Scalars["Int"]
   edges: Array<SitePageEdge>
@@ -2561,6 +2541,124 @@ export type SitePageFieldsEnum =
   | "internalComponentName"
   | "componentChunkName"
   | "matchPath"
+  | "isCreatedByStatefulCreatePages"
+  | "pluginCreator___id"
+  | "pluginCreator___parent___id"
+  | "pluginCreator___parent___parent___id"
+  | "pluginCreator___parent___parent___children"
+  | "pluginCreator___parent___children"
+  | "pluginCreator___parent___children___id"
+  | "pluginCreator___parent___children___children"
+  | "pluginCreator___parent___internal___content"
+  | "pluginCreator___parent___internal___contentDigest"
+  | "pluginCreator___parent___internal___description"
+  | "pluginCreator___parent___internal___fieldOwners"
+  | "pluginCreator___parent___internal___ignoreType"
+  | "pluginCreator___parent___internal___mediaType"
+  | "pluginCreator___parent___internal___owner"
+  | "pluginCreator___parent___internal___type"
+  | "pluginCreator___children"
+  | "pluginCreator___children___id"
+  | "pluginCreator___children___parent___id"
+  | "pluginCreator___children___parent___children"
+  | "pluginCreator___children___children"
+  | "pluginCreator___children___children___id"
+  | "pluginCreator___children___children___children"
+  | "pluginCreator___children___internal___content"
+  | "pluginCreator___children___internal___contentDigest"
+  | "pluginCreator___children___internal___description"
+  | "pluginCreator___children___internal___fieldOwners"
+  | "pluginCreator___children___internal___ignoreType"
+  | "pluginCreator___children___internal___mediaType"
+  | "pluginCreator___children___internal___owner"
+  | "pluginCreator___children___internal___type"
+  | "pluginCreator___internal___content"
+  | "pluginCreator___internal___contentDigest"
+  | "pluginCreator___internal___description"
+  | "pluginCreator___internal___fieldOwners"
+  | "pluginCreator___internal___ignoreType"
+  | "pluginCreator___internal___mediaType"
+  | "pluginCreator___internal___owner"
+  | "pluginCreator___internal___type"
+  | "pluginCreator___resolve"
+  | "pluginCreator___name"
+  | "pluginCreator___version"
+  | "pluginCreator___pluginOptions___plugins"
+  | "pluginCreator___pluginOptions___plugins___resolve"
+  | "pluginCreator___pluginOptions___plugins___id"
+  | "pluginCreator___pluginOptions___plugins___name"
+  | "pluginCreator___pluginOptions___plugins___version"
+  | "pluginCreator___pluginOptions___plugins___nodeAPIs"
+  | "pluginCreator___pluginOptions___plugins___browserAPIs"
+  | "pluginCreator___pluginOptions___plugins___pluginFilepath"
+  | "pluginCreator___pluginOptions___name"
+  | "pluginCreator___pluginOptions___path"
+  | "pluginCreator___pluginOptions___maxWidth"
+  | "pluginCreator___pluginOptions___linkImagesToOriginal"
+  | "pluginCreator___pluginOptions___showCaptions"
+  | "pluginCreator___pluginOptions___markdownCaptions"
+  | "pluginCreator___pluginOptions___sizeByPixelDensity"
+  | "pluginCreator___pluginOptions___backgroundColor"
+  | "pluginCreator___pluginOptions___quality"
+  | "pluginCreator___pluginOptions___withWebp"
+  | "pluginCreator___pluginOptions___tracedSVG"
+  | "pluginCreator___pluginOptions___loading"
+  | "pluginCreator___pluginOptions___decoding"
+  | "pluginCreator___pluginOptions___disableBgImageOnAlpha"
+  | "pluginCreator___pluginOptions___disableBgImage"
+  | "pluginCreator___pluginOptions___classPrefix"
+  | "pluginCreator___pluginOptions___aliases___sh"
+  | "pluginCreator___pluginOptions___showLineNumbers"
+  | "pluginCreator___pluginOptions___noInlineHighlight"
+  | "pluginCreator___pluginOptions___prompt___user"
+  | "pluginCreator___pluginOptions___prompt___host"
+  | "pluginCreator___pluginOptions___prompt___global"
+  | "pluginCreator___pluginOptions___base64Width"
+  | "pluginCreator___pluginOptions___stripMetadata"
+  | "pluginCreator___pluginOptions___defaultQuality"
+  | "pluginCreator___pluginOptions___failOnError"
+  | "pluginCreator___pluginOptions___short_name"
+  | "pluginCreator___pluginOptions___start_url"
+  | "pluginCreator___pluginOptions___background_color"
+  | "pluginCreator___pluginOptions___theme_color"
+  | "pluginCreator___pluginOptions___display"
+  | "pluginCreator___pluginOptions___icon"
+  | "pluginCreator___pluginOptions___legacy"
+  | "pluginCreator___pluginOptions___theme_color_in_head"
+  | "pluginCreator___pluginOptions___cache_busting_mode"
+  | "pluginCreator___pluginOptions___crossOrigin"
+  | "pluginCreator___pluginOptions___include_favicon"
+  | "pluginCreator___pluginOptions___cacheDigest"
+  | "pluginCreator___pluginOptions___displayName"
+  | "pluginCreator___pluginOptions___minify"
+  | "pluginCreator___pluginOptions___namespace"
+  | "pluginCreator___pluginOptions___transpileTemplateLiterals"
+  | "pluginCreator___pluginOptions___pure"
+  | "pluginCreator___pluginOptions___pathCheck"
+  | "pluginCreator___pluginOptions___allExtensions"
+  | "pluginCreator___pluginOptions___isTSX"
+  | "pluginCreator___pluginOptions___jsxPragma"
+  | "pluginCreator___nodeAPIs"
+  | "pluginCreator___browserAPIs"
+  | "pluginCreator___ssrAPIs"
+  | "pluginCreator___pluginFilepath"
+  | "pluginCreator___packageJson___name"
+  | "pluginCreator___packageJson___description"
+  | "pluginCreator___packageJson___version"
+  | "pluginCreator___packageJson___main"
+  | "pluginCreator___packageJson___author"
+  | "pluginCreator___packageJson___license"
+  | "pluginCreator___packageJson___dependencies"
+  | "pluginCreator___packageJson___dependencies___name"
+  | "pluginCreator___packageJson___dependencies___version"
+  | "pluginCreator___packageJson___devDependencies"
+  | "pluginCreator___packageJson___devDependencies___name"
+  | "pluginCreator___packageJson___devDependencies___version"
+  | "pluginCreator___packageJson___peerDependencies"
+  | "pluginCreator___packageJson___peerDependencies___name"
+  | "pluginCreator___packageJson___peerDependencies___version"
+  | "pluginCreator___packageJson___keywords"
+  | "pluginCreatorId"
   | "id"
   | "parent___id"
   | "parent___parent___id"
@@ -2647,7 +2745,6 @@ export type SitePageFieldsEnum =
   | "internal___mediaType"
   | "internal___owner"
   | "internal___type"
-  | "isCreatedByStatefulCreatePages"
   | "context___slug"
   | "context___title"
   | "context___previous___frontmatter___title"
@@ -2663,106 +2760,6 @@ export type SitePageFieldsEnum =
   | "context___tag"
   | "context___totalCount"
   | "context___numTagPages"
-  | "pluginCreator___id"
-  | "pluginCreator___parent___id"
-  | "pluginCreator___parent___parent___id"
-  | "pluginCreator___parent___parent___children"
-  | "pluginCreator___parent___children"
-  | "pluginCreator___parent___children___id"
-  | "pluginCreator___parent___children___children"
-  | "pluginCreator___parent___internal___content"
-  | "pluginCreator___parent___internal___contentDigest"
-  | "pluginCreator___parent___internal___description"
-  | "pluginCreator___parent___internal___fieldOwners"
-  | "pluginCreator___parent___internal___ignoreType"
-  | "pluginCreator___parent___internal___mediaType"
-  | "pluginCreator___parent___internal___owner"
-  | "pluginCreator___parent___internal___type"
-  | "pluginCreator___children"
-  | "pluginCreator___children___id"
-  | "pluginCreator___children___parent___id"
-  | "pluginCreator___children___parent___children"
-  | "pluginCreator___children___children"
-  | "pluginCreator___children___children___id"
-  | "pluginCreator___children___children___children"
-  | "pluginCreator___children___internal___content"
-  | "pluginCreator___children___internal___contentDigest"
-  | "pluginCreator___children___internal___description"
-  | "pluginCreator___children___internal___fieldOwners"
-  | "pluginCreator___children___internal___ignoreType"
-  | "pluginCreator___children___internal___mediaType"
-  | "pluginCreator___children___internal___owner"
-  | "pluginCreator___children___internal___type"
-  | "pluginCreator___internal___content"
-  | "pluginCreator___internal___contentDigest"
-  | "pluginCreator___internal___description"
-  | "pluginCreator___internal___fieldOwners"
-  | "pluginCreator___internal___ignoreType"
-  | "pluginCreator___internal___mediaType"
-  | "pluginCreator___internal___owner"
-  | "pluginCreator___internal___type"
-  | "pluginCreator___resolve"
-  | "pluginCreator___name"
-  | "pluginCreator___version"
-  | "pluginCreator___pluginOptions___plugins"
-  | "pluginCreator___pluginOptions___plugins___resolve"
-  | "pluginCreator___pluginOptions___plugins___id"
-  | "pluginCreator___pluginOptions___plugins___name"
-  | "pluginCreator___pluginOptions___plugins___version"
-  | "pluginCreator___pluginOptions___plugins___nodeAPIs"
-  | "pluginCreator___pluginOptions___plugins___browserAPIs"
-  | "pluginCreator___pluginOptions___plugins___pluginFilepath"
-  | "pluginCreator___pluginOptions___name"
-  | "pluginCreator___pluginOptions___path"
-  | "pluginCreator___pluginOptions___maxWidth"
-  | "pluginCreator___pluginOptions___classPrefix"
-  | "pluginCreator___pluginOptions___aliases___sh"
-  | "pluginCreator___pluginOptions___showLineNumbers"
-  | "pluginCreator___pluginOptions___noInlineHighlight"
-  | "pluginCreator___pluginOptions___prompt___user"
-  | "pluginCreator___pluginOptions___prompt___host"
-  | "pluginCreator___pluginOptions___prompt___global"
-  | "pluginCreator___pluginOptions___short_name"
-  | "pluginCreator___pluginOptions___start_url"
-  | "pluginCreator___pluginOptions___background_color"
-  | "pluginCreator___pluginOptions___theme_color"
-  | "pluginCreator___pluginOptions___display"
-  | "pluginCreator___pluginOptions___icon"
-  | "pluginCreator___pluginOptions___cache_busting_mode"
-  | "pluginCreator___pluginOptions___include_favicon"
-  | "pluginCreator___pluginOptions___legacy"
-  | "pluginCreator___pluginOptions___theme_color_in_head"
-  | "pluginCreator___pluginOptions___cacheDigest"
-  | "pluginCreator___pluginOptions___displayName"
-  | "pluginCreator___pluginOptions___minify"
-  | "pluginCreator___pluginOptions___namespace"
-  | "pluginCreator___pluginOptions___transpileTemplateLiterals"
-  | "pluginCreator___pluginOptions___pure"
-  | "pluginCreator___pluginOptions___pathCheck"
-  | "pluginCreator___pluginOptions___allExtensions"
-  | "pluginCreator___pluginOptions___isTSX"
-  | "pluginCreator___pluginOptions___jsxPragma"
-  | "pluginCreator___nodeAPIs"
-  | "pluginCreator___browserAPIs"
-  | "pluginCreator___ssrAPIs"
-  | "pluginCreator___pluginFilepath"
-  | "pluginCreator___packageJson___name"
-  | "pluginCreator___packageJson___description"
-  | "pluginCreator___packageJson___version"
-  | "pluginCreator___packageJson___main"
-  | "pluginCreator___packageJson___author"
-  | "pluginCreator___packageJson___license"
-  | "pluginCreator___packageJson___dependencies"
-  | "pluginCreator___packageJson___dependencies___name"
-  | "pluginCreator___packageJson___dependencies___version"
-  | "pluginCreator___packageJson___devDependencies"
-  | "pluginCreator___packageJson___devDependencies___name"
-  | "pluginCreator___packageJson___devDependencies___version"
-  | "pluginCreator___packageJson___peerDependencies"
-  | "pluginCreator___packageJson___peerDependencies___name"
-  | "pluginCreator___packageJson___peerDependencies___version"
-  | "pluginCreator___packageJson___keywords"
-  | "pluginCreatorId"
 
 export type SitePageGroupConnection = {
   totalCount: Scalars["Int"]
@@ -2779,14 +2776,14 @@ export type SitePageFilterInput = {
   internalComponentName?: Maybe<StringQueryOperatorInput>
   componentChunkName?: Maybe<StringQueryOperatorInput>
   matchPath?: Maybe<StringQueryOperatorInput>
+  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>
+  pluginCreator?: Maybe<SitePluginFilterInput>
+  pluginCreatorId?: Maybe<StringQueryOperatorInput>
   id?: Maybe<StringQueryOperatorInput>
   parent?: Maybe<NodeFilterInput>
   children?: Maybe<NodeFilterListInput>
   internal?: Maybe<InternalFilterInput>
-  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>
   context?: Maybe<SitePageContextFilterInput>
-  pluginCreator?: Maybe<SitePluginFilterInput>
-  pluginCreatorId?: Maybe<StringQueryOperatorInput>
 }
 
 export type SitePageSortInput = {
@@ -2837,11 +2834,11 @@ export type MarkdownRemarkEdge = {
 export type MarkdownRemarkFieldsEnum =
   | "id"
   | "frontmatter___title"
-  | "frontmatter___date"
-  | "frontmatter___tags"
-  | "frontmatter___description"
-  | "frontmatter___slug"
   | "frontmatter___layout"
+  | "frontmatter___description"
+  | "frontmatter___date"
+  | "frontmatter___slug"
+  | "frontmatter___tags"
   | "excerpt"
   | "rawMarkdownBody"
   | "fileAbsolutePath"
@@ -3009,16 +3006,6 @@ export type ImageSharpFieldsEnum =
   | "fixed___srcWebp"
   | "fixed___srcSetWebp"
   | "fixed___originalName"
-  | "resolutions___base64"
-  | "resolutions___tracedSVG"
-  | "resolutions___aspectRatio"
-  | "resolutions___width"
-  | "resolutions___height"
-  | "resolutions___src"
-  | "resolutions___srcSet"
-  | "resolutions___srcWebp"
-  | "resolutions___srcSetWebp"
-  | "resolutions___originalName"
   | "fluid___base64"
   | "fluid___tracedSVG"
   | "fluid___aspectRatio"
@@ -3031,18 +3018,7 @@ export type ImageSharpFieldsEnum =
   | "fluid___originalName"
   | "fluid___presentationWidth"
   | "fluid___presentationHeight"
-  | "sizes___base64"
-  | "sizes___tracedSVG"
-  | "sizes___aspectRatio"
-  | "sizes___src"
-  | "sizes___srcSet"
-  | "sizes___srcWebp"
-  | "sizes___srcSetWebp"
-  | "sizes___sizes"
-  | "sizes___originalImg"
-  | "sizes___originalName"
-  | "sizes___presentationWidth"
-  | "sizes___presentationHeight"
+  | "gatsbyImageData"
   | "original___width"
   | "original___height"
   | "original___src"
@@ -3289,6 +3265,18 @@ export type SitePluginFieldsEnum =
   | "pluginOptions___plugins___name"
   | "pluginOptions___plugins___version"
   | "pluginOptions___plugins___pluginOptions___maxWidth"
+  | "pluginOptions___plugins___pluginOptions___linkImagesToOriginal"
+  | "pluginOptions___plugins___pluginOptions___showCaptions"
+  | "pluginOptions___plugins___pluginOptions___markdownCaptions"
+  | "pluginOptions___plugins___pluginOptions___sizeByPixelDensity"
+  | "pluginOptions___plugins___pluginOptions___backgroundColor"
+  | "pluginOptions___plugins___pluginOptions___quality"
+  | "pluginOptions___plugins___pluginOptions___withWebp"
+  | "pluginOptions___plugins___pluginOptions___tracedSVG"
+  | "pluginOptions___plugins___pluginOptions___loading"
+  | "pluginOptions___plugins___pluginOptions___decoding"
+  | "pluginOptions___plugins___pluginOptions___disableBgImageOnAlpha"
+  | "pluginOptions___plugins___pluginOptions___disableBgImage"
   | "pluginOptions___plugins___pluginOptions___classPrefix"
   | "pluginOptions___plugins___pluginOptions___showLineNumbers"
   | "pluginOptions___plugins___pluginOptions___noInlineHighlight"
@@ -3298,6 +3286,18 @@ export type SitePluginFieldsEnum =
   | "pluginOptions___name"
   | "pluginOptions___path"
   | "pluginOptions___maxWidth"
+  | "pluginOptions___linkImagesToOriginal"
+  | "pluginOptions___showCaptions"
+  | "pluginOptions___markdownCaptions"
+  | "pluginOptions___sizeByPixelDensity"
+  | "pluginOptions___backgroundColor"
+  | "pluginOptions___quality"
+  | "pluginOptions___withWebp"
+  | "pluginOptions___tracedSVG"
+  | "pluginOptions___loading"
+  | "pluginOptions___decoding"
+  | "pluginOptions___disableBgImageOnAlpha"
+  | "pluginOptions___disableBgImage"
   | "pluginOptions___classPrefix"
   | "pluginOptions___aliases___sh"
   | "pluginOptions___showLineNumbers"
@@ -3305,16 +3305,21 @@ export type SitePluginFieldsEnum =
   | "pluginOptions___prompt___user"
   | "pluginOptions___prompt___host"
   | "pluginOptions___prompt___global"
+  | "pluginOptions___base64Width"
+  | "pluginOptions___stripMetadata"
+  | "pluginOptions___defaultQuality"
+  | "pluginOptions___failOnError"
   | "pluginOptions___short_name"
   | "pluginOptions___start_url"
   | "pluginOptions___background_color"
   | "pluginOptions___theme_color"
   | "pluginOptions___display"
   | "pluginOptions___icon"
-  | "pluginOptions___cache_busting_mode"
-  | "pluginOptions___include_favicon"
   | "pluginOptions___legacy"
   | "pluginOptions___theme_color_in_head"
+  | "pluginOptions___cache_busting_mode"
+  | "pluginOptions___crossOrigin"
+  | "pluginOptions___include_favicon"
   | "pluginOptions___cacheDigest"
   | "pluginOptions___displayName"
   | "pluginOptions___minify"
