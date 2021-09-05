@@ -28,7 +28,7 @@ tags: [Gatsby, remark]
 以下のような 「html」 Field を含む Query を実行するとなぜ markdown ファイルに基づく HTML を取得できるのか?
 
 ```graphql
-query($slug: String!) {
+query ($slug: String!) {
   markdownRemark(frontmatter: { slug: { eq: $slug } }) {
     html
   }
