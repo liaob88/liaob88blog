@@ -29,7 +29,7 @@ export const query = graphql`
 `
 
 const PostPage: React.FC<PostData> = ({ data, pageContext }) => {
-  const { previous, next } = pageContext
+  const { previous, next, ogpImageUrl } = pageContext
   const { frontmatter, html, fields } = data.markdownRemark
 
   const { title, tags } = frontmatter
@@ -41,7 +41,7 @@ const PostPage: React.FC<PostData> = ({ data, pageContext }) => {
 
   return (
     <Layout>
-      <SEO title={frontmatter.title} />
+      <SEO title={frontmatter.title} ogpImageUrl={ogpImageUrl} />
       <ArticleContent
         html={html}
         title={title}

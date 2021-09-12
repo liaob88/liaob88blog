@@ -10,6 +10,7 @@
     "@fortawesome/react-fontawesome": "0.1.15",
     "@types/styled-components": "5.1.14",
     "babel-plugin-styled-components": "1.13.2",
+    "cloudinary": "^1.26.3",
     "gatsby": "3.13.0",
     "gatsby-image": "3.11.0",
     "gatsby-plugin-google-gtag": "3.12.0",
