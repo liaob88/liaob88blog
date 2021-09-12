@@ -2,6 +2,7 @@ import { GatsbyNode } from "gatsby"
 import * as path from "path"
 import { MarkdownRemarkFrontmatter } from "../gatsby-graphql"
 import { execSync } from "child_process"
+import CloudinaryService from "../lib/CloudinaryService"
 
 const query = `
   {
@@ -74,12 +75,18 @@ export const createPages: GatsbyNode["createPages"] = async ({
   posts.forEach(({ node }, index) => {
     const next = getNextPost(index)
     const previous = getPreviousPost(index)
+
+    // ogp image url
+    const titleOnImage = `#${index}\n${node.frontmatter.title}`
+    const ogpImageUrl = new CloudinaryService(titleOnImage).getImageUrl()
+
     createPage({
       path: node.frontmatter.slug,
       component: path.resolve("./src/templates/Post.tsx"),
       context: {
         slug: node.frontmatter.slug,
         title: node.frontmatter.title,
+        ogpImageUrl,
         previous,
         next,
       },

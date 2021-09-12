@@ -11,7 +11,7 @@ import { Helmet } from "react-helmet"
 import { useStaticQuery } from "gatsby"
 import { graphql } from "gatsby"
 
-function SEO({ description, lang, meta, title }) {
+function SEO({ description, lang, meta, title, ogpImageUrl }) {
   const data = useStaticQuery(graphql`
     {
       siteMeta: site {
@@ -30,7 +30,6 @@ function SEO({ description, lang, meta, title }) {
   const { siteMeta, ogpImage } = data
   const { siteTitle, author } = siteMeta.siteMetadata
 
-  const ogpImageUrl = `https://liaob88blog.netlify.app${ogpImage.publicURL}`
   const metaDescription = description
 
   return (
@@ -59,7 +58,9 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           property: `og:image`,
-          content: ogpImageUrl,
+          content:
+            ogpImageUrl ??
+            `https://liaob88blog.netlify.app${ogpImage.publicURL}`,
         },
         {
           name: `twitter:card`,
