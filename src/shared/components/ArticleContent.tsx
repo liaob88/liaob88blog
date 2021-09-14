@@ -48,10 +48,7 @@ const ArticleContent: React.FC<Props> = ({
 }
 
 const PostPageWrapper = styled.div`
-  p,
-  li {
-    font-size: 0.9em;
-  }
+  font-size: 0.85rem !important;
   padding: 0 1rem;
   margin-bottom: 5rem;
 `
