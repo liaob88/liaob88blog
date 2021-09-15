@@ -1,13 +1,13 @@
 ---
 layout: Test
-title: Gatsby × Typescript × Netlify で markdown ベースの blog を作ってみた
+title: Gatsby × TypeScript × Netlify で markdown ベースの blog を作ってみた
 description: blog を作ったので軽い振り返りと課題の整理をする
 date: 2020-08-25 00:00
 slug: "gatsby-typescript-blog"
-tags: [Gatsby, typescript, blog]
+tags: [Gatsby, TypeScript, blog]
 ---
 
-タイトルの通り、Gatsby.js × Typescript × Netlify で markdown ベースの blog を作ってみました。(作ったのは夏なのですが、しばらく放置してました。)
+タイトルの通り、Gatsby.js × TypeScript × Netlify で markdown ベースの blog を作ってみました。(作ったのは夏なのですが、しばらく放置してました。)
 
 「 Gatsby blog 」とかでググるとよく出てくるあるあるな構成ではありますが、自分で作ってみると結構つまずいたので、振り返りも兼ねて記事を書こうと思います。
 
@@ -16,7 +16,7 @@ tags: [Gatsby, typescript, blog]
 もうすでに書いているものものもありますが改めて。
 
 - Gatsby
-- Typescript
+- TypeScript
 - React.js
 - Netlify
 - CSS
@@ -73,7 +73,7 @@ GraphQL は基本的にレスポンスが json 形で返されるのですが、
         {
           "node": {
             "frontmatter": {
-              "title": "Gatsby × Typescript × Netlify で markdown ベースの blog を作ってみた"
+              "title": "Gatsby × TypeScript × Netlify で markdown ベースの blog を作ってみた"
             }
           }
         }
