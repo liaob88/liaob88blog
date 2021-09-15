@@ -4,7 +4,7 @@ title: Gatsby × Typescript × Netlify で markdown ベースの blog を作っ�
 description: blog を作ったので軽い振り返りと課題の整理をする
 date: 2020-08-25 00:00
 slug: "gatsby-typescript-blog"
-tags: [gatsby, typescript, blog]
+tags: [Gatsby, typescript, blog]
 ---
 
 タイトルの通り、Gatsby.js × Typescript × Netlify で markdown ベースの blog を作ってみました。(作ったのは夏なのですが、しばらく放置してました。)
@@ -15,7 +15,7 @@ tags: [gatsby, typescript, blog]
 
 もうすでに書いているものものもありますが改めて。
 
-- Gatsby.js
+- Gatsby
 - Typescript
 - React.js
 - Netlify

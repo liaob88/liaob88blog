@@ -29,7 +29,7 @@ let MySkills = {
   勉強中: [
     "AWS(S3, EC2, ECS)",
     "Node.js",
-    "Gatsby.js(本サイトで使用)",
+    "Gatsby(本サイトで使用)",
     "python(簡単なスクレイピング)",
     "Go",
   ],
