@@ -1,9 +1,9 @@
 ---
-title: Gatsby.js × Cloudinary 構成で OGP 画像を自動生成させてみた
+title: Gatsby × Cloudinary 構成で OGP 画像を自動生成させてみた
 description: Cloudinary で各記事のタイトルが書かれた OGP 画像を作るようにしたのでその内容をまとめました
 date: 2021-09-12 20:39
 slug: blog-ogp-image-by-cloudinary
-tags: [Gatsby.js, ogp, Cloudinary, blog]
+tags: [Gatsby, ogp, Cloudinary, blog]
 ---
 
 ## 結論
