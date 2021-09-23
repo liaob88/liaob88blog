@@ -1,0 +1,4 @@
+rules:
+  - expected: JavaScript
+  - expected: TypeScript
+  - expected: Gatsby
