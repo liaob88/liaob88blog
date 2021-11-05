@@ -6,37 +6,27 @@ tags: [me]
 
 ## About Me
 
-### dev
-
-- Web アプリ開発が好きで、今はフロントエンドからバックエンド、インフラまで浅く広く興味の赴くまま技術を触っています。
-
-### private
-
-- 台湾とマンゴーが大好きです。
+- Web アプリケーションエンジニア
+- 台湾とマンゴーが大好き
 
 ## Skills
 
 ```js
-let MySkills = {
-  業務経験あり: [
-    "JavaScript",
-    "TypeScript",
-    "Angular",
-    "React",
-    "Ruby",
-    "Ruby on Rails",
-  ],
-  勉強中: [
-    "AWS(S3, EC2, ECS)",
-    "Node.js",
-    "Gatsby(本サイトで使用)",
-    "python(簡単なスクレイピング)",
-    "Go",
-  ],
-}
+let MySkills = [
+  "JavaScript",
+  "TypeScript",
+  "Angular",
+  "React",
+  "Ruby",
+  "Ruby on Rails",
+  "PHP",
+  "Laravel",
+  "AWS(S3, EC2, ECS)",
+  "MySQL",
+]
 ```
 
 ## Contact
 
 - email: liaob88g@gmail.com
-- Twitter: @liaob88
+- Twitter: [@liaob88](https://twitter.com/liaob88)
