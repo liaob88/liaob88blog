@@ -71,6 +71,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
   }
 
   // templates/post.tsx
+  if (!result.data) {
+    throw new Error("no data on the result")
+  }
   const posts = result.data.postsRemark.edges
   posts.forEach(({ node }, index) => {
     const next = getNextPost(index)
@@ -80,6 +83,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
     const titleOnImage = `#${index}\n${node.frontmatter.title}`
     const ogpImageUrl = new CloudinaryService(titleOnImage).getImageUrl()
 
+    if (!node.frontmatter.slug) {
+      throw new Error("no slug on the frontmatter")
+    }
     createPage({
       path: node.frontmatter.slug,
       component: path.resolve("./src/templates/Post.tsx"),

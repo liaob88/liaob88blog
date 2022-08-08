@@ -2,10 +2,12 @@ export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
 }
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> }
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> }
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>
+}
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   /** The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID. */
@@ -238,8 +240,6 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars["Date"]>
   siteMetadata?: Maybe<SiteSiteMetadata>
-  port?: Maybe<Scalars["Int"]>
-  host?: Maybe<Scalars["String"]>
   polyfill?: Maybe<Scalars["Boolean"]>
   pathPrefix?: Maybe<Scalars["String"]>
   id: Scalars["ID"]
@@ -385,11 +385,11 @@ export type MarkdownRemarkTableOfContentsArgs = {
 
 export type MarkdownRemarkFrontmatter = {
   title?: Maybe<Scalars["String"]>
-  layout?: Maybe<Scalars["String"]>
-  description?: Maybe<Scalars["String"]>
   date?: Maybe<Scalars["Date"]>
-  slug?: Maybe<Scalars["String"]>
   tags?: Maybe<Array<Maybe<Scalars["String"]>>>
+  description?: Maybe<Scalars["String"]>
+  slug?: Maybe<Scalars["String"]>
+  layout?: Maybe<Scalars["String"]>
 }
 
 export type MarkdownRemarkFrontmatterDateArgs = {
@@ -924,8 +924,6 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>
-  port?: Maybe<IntQueryOperatorInput>
-  host?: Maybe<StringQueryOperatorInput>
   polyfill?: Maybe<BooleanQueryOperatorInput>
   pathPrefix?: Maybe<StringQueryOperatorInput>
   id?: Maybe<StringQueryOperatorInput>
@@ -1135,11 +1133,11 @@ export type MarkdownRemarkFilterInput = {
 
 export type MarkdownRemarkFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>
-  layout?: Maybe<StringQueryOperatorInput>
-  description?: Maybe<StringQueryOperatorInput>
   date?: Maybe<DateQueryOperatorInput>
-  slug?: Maybe<StringQueryOperatorInput>
   tags?: Maybe<StringQueryOperatorInput>
+  description?: Maybe<StringQueryOperatorInput>
+  slug?: Maybe<StringQueryOperatorInput>
+  layout?: Maybe<StringQueryOperatorInput>
 }
 
 export type MarkdownRemarkFieldsFilterInput = {
@@ -1347,11 +1345,11 @@ export type FileFieldsEnum =
   | "childrenMarkdownRemark"
   | "childrenMarkdownRemark___id"
   | "childrenMarkdownRemark___frontmatter___title"
-  | "childrenMarkdownRemark___frontmatter___layout"
-  | "childrenMarkdownRemark___frontmatter___description"
   | "childrenMarkdownRemark___frontmatter___date"
-  | "childrenMarkdownRemark___frontmatter___slug"
   | "childrenMarkdownRemark___frontmatter___tags"
+  | "childrenMarkdownRemark___frontmatter___description"
+  | "childrenMarkdownRemark___frontmatter___slug"
+  | "childrenMarkdownRemark___frontmatter___layout"
   | "childrenMarkdownRemark___excerpt"
   | "childrenMarkdownRemark___rawMarkdownBody"
   | "childrenMarkdownRemark___fileAbsolutePath"
@@ -1407,11 +1405,11 @@ export type FileFieldsEnum =
   | "childrenMarkdownRemark___internal___type"
   | "childMarkdownRemark___id"
   | "childMarkdownRemark___frontmatter___title"
-  | "childMarkdownRemark___frontmatter___layout"
-  | "childMarkdownRemark___frontmatter___description"
   | "childMarkdownRemark___frontmatter___date"
-  | "childMarkdownRemark___frontmatter___slug"
   | "childMarkdownRemark___frontmatter___tags"
+  | "childMarkdownRemark___frontmatter___description"
+  | "childMarkdownRemark___frontmatter___slug"
+  | "childMarkdownRemark___frontmatter___layout"
   | "childMarkdownRemark___excerpt"
   | "childMarkdownRemark___rawMarkdownBody"
   | "childMarkdownRemark___fileAbsolutePath"
@@ -2020,8 +2018,6 @@ export type SiteFieldsEnum =
   | "siteMetadata___title"
   | "siteMetadata___description"
   | "siteMetadata___author"
-  | "port"
-  | "host"
   | "polyfill"
   | "pathPrefix"
   | "id"
@@ -2123,8 +2119,6 @@ export type SiteGroupConnection = {
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>
-  port?: Maybe<IntQueryOperatorInput>
-  host?: Maybe<StringQueryOperatorInput>
   polyfill?: Maybe<BooleanQueryOperatorInput>
   pathPrefix?: Maybe<StringQueryOperatorInput>
   id?: Maybe<StringQueryOperatorInput>
@@ -2837,11 +2831,11 @@ export type MarkdownRemarkEdge = {
 export type MarkdownRemarkFieldsEnum =
   | "id"
   | "frontmatter___title"
-  | "frontmatter___layout"
-  | "frontmatter___description"
   | "frontmatter___date"
-  | "frontmatter___slug"
   | "frontmatter___tags"
+  | "frontmatter___description"
+  | "frontmatter___slug"
+  | "frontmatter___layout"
   | "excerpt"
   | "rawMarkdownBody"
   | "fileAbsolutePath"
@@ -3522,22 +3516,41 @@ export type SiteBuildMetadataSortInput = {
 export type AboutPageDataQueryVariables = Exact<{ [key: string]: never }>
 
 export type AboutPageDataQuery = {
-  markdownRemark?: Maybe<
-    Pick<MarkdownRemark, "html"> & {
-      frontmatter?: Maybe<
-        Pick<MarkdownRemarkFrontmatter, "title" | "tags" | "date">
-      >
-      fields?: Maybe<Pick<MarkdownRemarkFields, "latestModifiedAt">>
-    }
-  >
+  markdownRemark?:
+    | {
+        html?: string | null | undefined
+        frontmatter?:
+          | {
+              title?: string | null | undefined
+              tags?: Array<string | null | undefined> | null | undefined
+              date?: any | null | undefined
+            }
+          | null
+          | undefined
+        fields?:
+          | { latestModifiedAt?: any | null | undefined }
+          | null
+          | undefined
+      }
+    | null
+    | undefined
 }
 
 export type SiteMetaDataQueryVariables = Exact<{ [key: string]: never }>
 
 export type SiteMetaDataQuery = {
-  site?: Maybe<{
-    siteMetadata?: Maybe<Pick<SiteSiteMetadata, "title" | "author">>
-  }>
+  site?:
+    | {
+        siteMetadata?:
+          | {
+              title?: string | null | undefined
+              author?: string | null | undefined
+            }
+          | null
+          | undefined
+      }
+    | null
+    | undefined
 }
 
 export type IndexPageDataQueryVariables = Exact<{
@@ -3549,12 +3562,16 @@ export type IndexPageDataQuery = {
   allMarkdownRemark: {
     edges: Array<{
       node: {
-        frontmatter?: Maybe<
-          Pick<
-            MarkdownRemarkFrontmatter,
-            "title" | "date" | "description" | "slug" | "tags"
-          >
-        >
+        frontmatter?:
+          | {
+              title?: string | null | undefined
+              date?: any | null | undefined
+              description?: string | null | undefined
+              slug?: string | null | undefined
+              tags?: Array<string | null | undefined> | null | undefined
+            }
+          | null
+          | undefined
       }
     }>
   }
@@ -3565,14 +3582,24 @@ export type PostPageDataQueryVariables = Exact<{
 }>
 
 export type PostPageDataQuery = {
-  markdownRemark?: Maybe<
-    Pick<MarkdownRemark, "html"> & {
-      frontmatter?: Maybe<
-        Pick<MarkdownRemarkFrontmatter, "title" | "tags" | "date">
-      >
-      fields?: Maybe<Pick<MarkdownRemarkFields, "latestModifiedAt">>
-    }
-  >
+  markdownRemark?:
+    | {
+        html?: string | null | undefined
+        frontmatter?:
+          | {
+              title?: string | null | undefined
+              tags?: Array<string | null | undefined> | null | undefined
+              date?: any | null | undefined
+            }
+          | null
+          | undefined
+        fields?:
+          | { latestModifiedAt?: any | null | undefined }
+          | null
+          | undefined
+      }
+    | null
+    | undefined
 }
 
 export type TagPageDataQueryVariables = Exact<{
@@ -3585,13 +3612,126 @@ export type TagPageDataQuery = {
   allMarkdownRemark: {
     edges: Array<{
       node: {
-        frontmatter?: Maybe<
-          Pick<
-            MarkdownRemarkFrontmatter,
-            "title" | "date" | "description" | "slug" | "tags"
-          >
-        >
+        frontmatter?:
+          | {
+              title?: string | null | undefined
+              date?: any | null | undefined
+              description?: string | null | undefined
+              slug?: string | null | undefined
+              tags?: Array<string | null | undefined> | null | undefined
+            }
+          | null
+          | undefined
       }
     }>
   }
+}
+
+export type GatsbyImageSharpFixedFragment = {
+  base64?: string | null | undefined
+  width: number
+  height: number
+  src: string
+  srcSet: string
+}
+
+export type GatsbyImageSharpFixed_TracedSvgFragment = {
+  tracedSVG?: string | null | undefined
+  width: number
+  height: number
+  src: string
+  srcSet: string
+}
+
+export type GatsbyImageSharpFixed_WithWebpFragment = {
+  base64?: string | null | undefined
+  width: number
+  height: number
+  src: string
+  srcSet: string
+  srcWebp?: string | null | undefined
+  srcSetWebp?: string | null | undefined
+}
+
+export type GatsbyImageSharpFixed_WithWebp_TracedSvgFragment = {
+  tracedSVG?: string | null | undefined
+  width: number
+  height: number
+  src: string
+  srcSet: string
+  srcWebp?: string | null | undefined
+  srcSetWebp?: string | null | undefined
+}
+
+export type GatsbyImageSharpFixed_NoBase64Fragment = {
+  width: number
+  height: number
+  src: string
+  srcSet: string
+}
+
+export type GatsbyImageSharpFixed_WithWebp_NoBase64Fragment = {
+  width: number
+  height: number
+  src: string
+  srcSet: string
+  srcWebp?: string | null | undefined
+  srcSetWebp?: string | null | undefined
+}
+
+export type GatsbyImageSharpFluidFragment = {
+  base64?: string | null | undefined
+  aspectRatio: number
+  src: string
+  srcSet: string
+  sizes: string
+}
+
+export type GatsbyImageSharpFluidLimitPresentationSizeFragment = {
+  maxHeight: number
+  maxWidth: number
+}
+
+export type GatsbyImageSharpFluid_TracedSvgFragment = {
+  tracedSVG?: string | null | undefined
+  aspectRatio: number
+  src: string
+  srcSet: string
+  sizes: string
+}
+
+export type GatsbyImageSharpFluid_WithWebpFragment = {
+  base64?: string | null | undefined
+  aspectRatio: number
+  src: string
+  srcSet: string
+  srcWebp?: string | null | undefined
+  srcSetWebp?: string | null | undefined
+  sizes: string
+}
+
+export type GatsbyImageSharpFluid_WithWebp_TracedSvgFragment = {
+  tracedSVG?: string | null | undefined
+  aspectRatio: number
+  src: string
+  srcSet: string
+  srcWebp?: string | null | undefined
+  srcSetWebp?: string | null | undefined
+  sizes: string
+}
+
+export type GatsbyImageSharpFluid_NoBase64Fragment = {
+  aspectRatio: number
+  src: string
+  srcSet: string
+  sizes: string
+}
+
+export type GatsbyImageSharpFluid_WithWebp_NoBase64Fragment = {
+  aspectRatio: number
+  src: string
+  srcSet: string
+  srcWebp?: string | null | undefined
+  srcSetWebp?: string | null | undefined
+  sizes: string
 }
