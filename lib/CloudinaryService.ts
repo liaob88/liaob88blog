@@ -29,6 +29,9 @@ export default class CloudinaryService {
   }
 
   getImageUrl(): string {
+    if (!process.env.BASE_IMAGE) {
+      throw new Error("no BASE_IMAGE")
+    }
     return cloudinary.v2.url(process.env.BASE_IMAGE, {
       transformation: this.createTransformationConfig(),
       sign_url: true,
