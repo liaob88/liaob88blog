@@ -7,9 +7,9 @@ import CloudinaryService from "./lib/CloudinaryService"
 const query = `
   {
     postsRemark: allMarkdownRemark(
-      sort: {fields: frontmatter___date, order: ASC}, 
-      filter: {fileAbsolutePath: {regex: "/blogs/"}}) 
-    {
+      sort: {frontmatter: {date: ASC}}
+      filter: {fileAbsolutePath: {regex: "/blogs/"}}
+    ) {
       edges {
         node {
           frontmatter {
@@ -21,7 +21,7 @@ const query = `
       }
     }
     tagsGroup: allMarkdownRemark(limit: 2000) {
-      group(field: frontmatter___tags) {
+      group(field: {frontmatter: {tags: SELECT}}) {
         fieldValue
         totalCount
       }

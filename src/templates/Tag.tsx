@@ -9,7 +9,7 @@ import SEO from "../shared/components/seo"
 export const query = graphql`
   query TagPageData($tag: String, $skip: Int!, $limit: Int!) {
     allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { tags: { in: [$tag] } } }
       limit: $limit
       skip: $skip
