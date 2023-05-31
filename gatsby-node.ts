@@ -1,8 +1,8 @@
 import { GatsbyNode } from "gatsby"
 import * as path from "path"
-import { MarkdownRemarkFrontmatter } from "../gatsby-graphql"
+import { MarkdownRemarkFrontmatter } from "./gatsby-graphql"
 import { execSync } from "child_process"
-import CloudinaryService from "../lib/CloudinaryService"
+import CloudinaryService from "./lib/CloudinaryService"
 
 const query = `
   {

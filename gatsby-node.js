@@ -6,5 +6,5 @@ require("ts-node").register({
   },
 })
 
-exports.createPages = require("./gatsby-node/index").createPages
-exports.onCreateNode = require("./gatsby-node/index").onCreateNode
+exports.createPages = require("./gatsby-node").createPages
+exports.onCreateNode = require("./gatsby-node").onCreateNode

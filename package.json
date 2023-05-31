@@ -47,8 +47,8 @@
   ],
   "license": "0BSD",
   "scripts": {
-    "build": "NODE_OPTIONS='--openssl-legacy-provider' gatsby build",
-    "develop": "NODE_OPTIONS='--openssl-legacy-provider' gatsby develop",
+    "build": "gatsby build",
+    "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
