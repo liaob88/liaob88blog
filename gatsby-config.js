@@ -1,4 +1,5 @@
 module.exports = {
+  graphqlTypegen: true,
   siteMetadata: {
     title: `liaob88blog`,
     description: `liaob88blog`,
@@ -9,13 +10,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
         // You can add multiple tracking ids and a pageview event will be fired for all of them.
-        trackingIds: [process.env.GA_TRACKING_ID],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-graphql-codegen`,
-      options: {
-        fileName: `./gatsby-graphql.ts`,
+        trackingIds: [process.env.GA_TRACKING_ID ?? "dummy"],
       },
     },
     `gatsby-plugin-react-helmet`,

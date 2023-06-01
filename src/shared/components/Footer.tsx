@@ -1,8 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import { SiteSiteMetadata } from "../../../gatsby-graphql"
 
-const Footer = ({ author }: Pick<SiteSiteMetadata, "author">) => (
+const Footer = ({ author }: Pick<Queries.SiteSiteMetadata, "author">) => (
   <StyledFooter>
     ©{author} {new Date().getFullYear()}. All Rights Reserved
   </StyledFooter>

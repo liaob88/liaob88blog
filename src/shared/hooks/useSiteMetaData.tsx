@@ -1,11 +1,12 @@
 import { useStaticQuery, graphql } from "gatsby"
-import { SiteMetaDataQuery, SiteSiteMetadata } from "../../../gatsby-graphql"
 
 export const useSiteMetadata = (): Pick<
-  SiteSiteMetadata,
+  Queries.SiteSiteMetadata,
   "title" | "author"
 > => {
-  const { site } = useStaticQuery<SiteMetaDataQuery>(
+  const { site } = useStaticQuery<{
+    site: { siteMetadata: Queries.SiteSiteMetadata }
+  }>(
     graphql`
       query SiteMetaData {
         site {

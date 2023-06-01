@@ -1,7 +1,6 @@
 import { Link } from "gatsby"
 import moment from "moment"
 import React, { Fragment } from "react"
-import { MarkdownRemarkFrontmatter, Maybe } from "../../../gatsby-graphql"
 import Tags from "./Tags"
 import styled from "styled-components"
 import { TagsWrapper } from "../Styles"
@@ -10,7 +9,7 @@ interface BlogListItemProps {
   posts: Array<{
     node: {
       frontmatter?: Pick<
-        MarkdownRemarkFrontmatter,
+        Queries.MarkdownRemarkFrontmatter,
         "title" | "date" | "description" | "slug" | "tags"
       >
     }
@@ -21,7 +20,7 @@ const BlogList: React.FC<BlogListItemProps> = ({ posts }) => (
   <Fragment>
     {posts.map(({ node }) => {
       const { frontmatter } = node
-      const { slug, title, date, tags, description } = frontmatter
+      const { slug, title, date, tags, description } = frontmatter || {}
       return (
         <BlogItem key={slug}>
           <BlogTitle>

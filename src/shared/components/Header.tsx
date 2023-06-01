@@ -1,10 +1,9 @@
 import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
 import styled, { css } from "styled-components"
-import { SiteSiteMetadata } from "../../../gatsby-graphql"
 
 interface HeaderProps {
-  siteTitle: SiteSiteMetadata["title"]
+  siteTitle: Queries.SiteSiteMetadata["title"]
 }
 const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   const [currentPath, setCurrentPath] = useState("")
@@ -16,10 +15,10 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
       <HeaderContents>
         <SiteTitle to="/">{siteTitle}</SiteTitle>
         <HeaderLinks>
-          <HederLink to="/" $isCurrent={!(currentPath === "/about")}>
+          <HederLink to="/" $isCurrent={currentPath === "/"}>
             Posts
           </HederLink>
-          <HederLink to="/about" $isCurrent={currentPath === "/about"}>
+          <HederLink to="/about" $isCurrent={currentPath === "/about/"}>
             About
           </HederLink>
         </HeaderLinks>
