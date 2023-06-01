@@ -1,18 +1,14 @@
 // syntax highlight
 import React from "react"
 import styled from "styled-components"
-import {
-  MarkdownRemark,
-  MarkdownRemarkFrontmatter,
-} from "../../../gatsby-graphql"
 import { TagsWrapper } from "../Styles"
 import Tags from "./Tags"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 interface Props {
-  html: MarkdownRemark["html"]
-  title: MarkdownRemarkFrontmatter["title"]
-  tags: MarkdownRemarkFrontmatter["tags"]
+  html: Queries.MarkdownRemark["html"]
+  title: Queries.MarkdownRemarkFrontmatter["title"]
+  tags: Queries.MarkdownRemarkFrontmatter["tags"]
   createdAt: string
   latestModifiedAt: string | null
 }
@@ -42,7 +38,7 @@ const ArticleContent: React.FC<Props> = ({
       <TagsWrapper $bottomSpace={true}>
         <Tags tags={tags} />
       </TagsWrapper>
-      <MarkdownContent dangerouslySetInnerHTML={{ __html: html }} />
+      <MarkdownContent dangerouslySetInnerHTML={{ __html: html ?? "" }} />
     </PostPageWrapper>
   )
 }

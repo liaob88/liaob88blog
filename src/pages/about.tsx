@@ -1,6 +1,5 @@
 import { graphql } from "gatsby"
 import React from "react"
-import { AboutPageDataQuery } from "../../gatsby-graphql"
 import ArticleContent from "../shared/components/ArticleContent"
 import Layout from "../shared/components/Layout"
 import SEO from "../shared/components/seo"
@@ -25,13 +24,15 @@ export const query = graphql`
   }
 `
 
-const AboutPage: React.FC<{ data: AboutPageDataQuery }> = ({ data }) => {
-  const { html, frontmatter, fields } = data.markdownRemark
+const AboutPage: React.FC<{ data: Queries.AboutPageDataQuery }> = ({
+  data,
+}) => {
+  const { html, frontmatter, fields } = data.markdownRemark || {}
 
-  const { title, tags } = frontmatter
+  const { title, tags } = frontmatter || {}
 
-  const createdAt = moment(frontmatter.date).format(`MM.DD.YYYY`)
-  const latestModifiedAt = fields.latestModifiedAt
+  const createdAt = moment(frontmatter?.date).format(`MM.DD.YYYY`)
+  const latestModifiedAt = fields?.latestModifiedAt
     ? moment(fields.latestModifiedAt).format(`MM.DD.YYYY`)
     : null
   return (

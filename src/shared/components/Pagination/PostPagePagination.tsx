@@ -1,10 +1,6 @@
 import { Link } from "@reach/router"
 import React from "react"
 import styled from "styled-components"
-import {
-  SitePageContextNext,
-  SitePageContextPrevious,
-} from "../../../../gatsby-graphql"
 
 interface Props {
   previous: SitePageContextPrevious
