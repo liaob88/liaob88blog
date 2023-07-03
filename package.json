@@ -9,7 +9,7 @@
     "@fortawesome/free-solid-svg-icons": "6.4.0",
     "@fortawesome/react-fontawesome": "0.2.0",
     "@types/styled-components": "5.1.26",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@babel/eslint-parser": "^7.22.5",
     "babel-plugin-styled-components": "2.1.4",
     "cloudinary": "1.37.3",
