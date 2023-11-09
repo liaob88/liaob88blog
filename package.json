@@ -10,7 +10,7 @@
     "@fortawesome/react-fontawesome": "0.2.0",
     "@types/styled-components": "5.1.30",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@babel/eslint-parser": "^7.22.15",
+    "@babel/eslint-parser": "^7.23.3",
     "babel-plugin-styled-components": "2.1.4",
     "cloudinary": "1.41.0",
     "gatsby": "^5.12.9",
