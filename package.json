@@ -13,7 +13,7 @@
     "@babel/eslint-parser": "^7.23.3",
     "babel-plugin-styled-components": "2.1.4",
     "cloudinary": "1.41.0",
-    "gatsby": "^5.12.11",
+    "gatsby": "^5.12.12",
     "gatsby-image": "3.11.0",
     "gatsby-plugin-google-gtag": "5.12.3",
     "gatsby-plugin-manifest": "5.12.3",
